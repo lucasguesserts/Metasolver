@@ -156,6 +156,8 @@ int main(int argc, char** argv){
     //bool kdtree= false;
 
     Block::FSB=fsb;
+    clock_t begin_time=clock();
+
     clpState* s0 = new_state(file,inst, min_fr, 10000, f);
 
     //if(kdtree)
@@ -163,7 +165,6 @@ int main(int argc, char** argv){
 
     cout << "n_blocks:"<< s0->get_n_valid_blocks() << endl;
 
-    clock_t begin_time=clock();
 
     VCS_Function* vcs = new VCS_Function(s0->nb_left_boxes, *s0->cont,
     alpha, beta, gamma, p, delta, 0.0, r);

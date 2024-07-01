@@ -11,7 +11,7 @@ export ALL_INSTANCE_SETS="$WEAKLY_HETEROGENEOUS_INSTANCE_SET $STRONGLY_HETEROGEN
 export INSTANCE_LIST=$(seq 0 1 9)
 export NUMBER_OF_THREADS_SELECTED=$(expr `nproc --all` / 2)
 export NUMBER_OF_THREADS=$(($NUMBER_OF_THREADS_SELECTED>0 ? $NUMBER_OF_THREADS_SELECTED : 1))
-export SOLVER="./build/BSG_CLP"
+export SOLVER="./build/Release/BSG_CLP"
 export SOLVER_OPTIONS="--seed=42 --timelimit=30 --alpha=4 --beta=1 --gamma=0.2 -p0.04 -fBR --show_layout"
 export BLOCK_MINIMUM_FILL_RATE_OPTION="--min_fr"
 

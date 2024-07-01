@@ -1,16 +1,19 @@
-#!/bin/sh
+#!/bin/bash
 
 # Options
 export INPUT_DIR="problems/clp/benchs/BR/"
 export OUTPUT_DIR="out/"
 export INDIVIDUAL_VOLUME_USAGE_FILE_NAME="individual_volume_usage.log"
 export AVERAGE_VOLUME_USAGE_FILE_NAME="average_volume_usage.log"
-export INSTANCE_SET_LIST=$(seq 0 1 15)
+export WEAKLY_HETEROGENEOUS_INSTANCE_SET=$(seq 0 1 7)
+export STRONGLY_HETEROGENEOUS_INSTANCE_SET=$(seq 8 1 15)
+export ALL_INSTANCE_SETS="$WEAKLY_HETEROGENEOUS_INSTANCE_SET $STRONGLY_HETEROGENEOUS_INSTANCE_SET"
 export INSTANCE_LIST=$(seq 0 1 9)
 export NUMBER_OF_THREADS_SELECTED=$(expr `nproc --all` / 2)
 export NUMBER_OF_THREADS=$(($NUMBER_OF_THREADS_SELECTED>0 ? $NUMBER_OF_THREADS_SELECTED : 1))
 export SOLVER="./build/BSG_CLP"
-export SOLVER_OPTIONS="--seed=42 --timelimit=30 --min_fr=0.98 --alpha=4 --beta=1 --gamma=0.2 -p0.04 -fBR --show_layout"
+export SOLVER_OPTIONS="--seed=42 --timelimit=30 --alpha=4 --beta=1 --gamma=0.2 -p0.04 -fBR --show_layout"
+export BLOCK_MINIMUM_FILL_RATE_OPTION="--min_fr"
 
 
 # auxiliary variables
@@ -26,8 +29,9 @@ instance_set_output_dir () {
 export -f instance_set_output_dir
 
 solve_instance () {
-    INSTANCE_SET=$1
-    INSTANCE=$2
+    local FILL_RATE="$1"
+    local INSTANCE_SET="$2"
+    local INSTANCE="$3"
 
     echo -e "solving -> set $INSTANCE_SET - instance $INSTANCE"
 
@@ -36,15 +40,15 @@ solve_instance () {
     mkdir -p $INSTANCE_SET_OUTPUT_DIR
     LOG_FILE="${INSTANCE_SET_OUTPUT_DIR}/${INSTANCE}.log"
 
-    $SOLVER $INSTANCE_SET_INPUT_FILE $SOLVER_OPTIONS -i $INSTANCE > $LOG_FILE
+    $SOLVER $INSTANCE_SET_INPUT_FILE $SOLVER_OPTIONS $BLOCK_MINIMUM_FILL_RATE_OPTION=$FILL_RATE -i $INSTANCE > $LOG_FILE
 }
 export -f solve_instance
 
 extract_volume_usage () {
     # extract volume usage from an output file
     # if not found, for any reason, output "-1"
-    INSTANCE_SET=$1
-    INSTANCE=$2
+    local INSTANCE_SET=$1
+    local INSTANCE=$2
 
     INSTANCE_SET_OUTPUT_DIR=$(instance_set_output_dir $INSTANCE_SET)
     OUTPUT_FILE="${INSTANCE_SET_OUTPUT_DIR}/${INSTANCE}.log"
@@ -66,7 +70,7 @@ export -f extract_volume_usage
 
 compute_average_volume () {
     # Store the filename in a variable
-    FILE_NAME=$1
+    local FILE_NAME=$1
 
     # Check if the file exists
     if [ ! -f "$FILE_NAME" ]; then
@@ -114,7 +118,12 @@ parallel  \
     -j $NUMBER_OF_THREADS \
     --keep-order \
     --linebuffer \
-    solve_instance ::: ${INSTANCE_SET_LIST} ::: ${INSTANCE_LIST}
+    solve_instance "1.00" ::: ${WEAKLY_HETEROGENEOUS_INSTANCE_SET} ::: ${INSTANCE_LIST}
+parallel  \
+    -j $NUMBER_OF_THREADS \
+    --keep-order \
+    --linebuffer \
+    solve_instance "0.98" ::: ${STRONGLY_HETEROGENEOUS_INSTANCE_SET} ::: ${INSTANCE_LIST}
 
 
 # log the individual volume usage to a single file
@@ -123,7 +132,7 @@ parallel  \
     -j $NUMBER_OF_THREADS \
     --keep-order \
     --linebuffer \
-    extract_volume_usage ::: ${INSTANCE_SET_LIST} ::: ${INSTANCE_LIST}
+    extract_volume_usage ::: ${ALL_INSTANCE_SETS} ::: ${INSTANCE_LIST}
 
 
 # log the average volume usage per instance set to a single file

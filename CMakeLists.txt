@@ -20,32 +20,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 # Dependencies
 
 ## Bullet
-set(BULLET_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/bullet-2.80/src )
-set(BULLET_STATIC_LIBRARIES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/static/)
-find_library(
-    BULLET_DYNAMICS_LIBRARY
-    NAME BulletDynamics
-    PATHS ${BULLET_STATIC_LIBRARIES_DIR}
-    REQUIRED
-)
-find_library(
-    BULLET_COLLISION_LIBRARY
-    NAME BulletCollision
-    PATHS ${BULLET_STATIC_LIBRARIES_DIR}
-    REQUIRED
-)
-find_library(
-    BULLET_LINEAR_MATH_LIBRARY
-    NAME LinearMath
-    PATHS ${BULLET_STATIC_LIBRARIES_DIR}
-    REQUIRED
-)
-add_library(Bullet STATIC IMPORTED)
-set_target_properties(Bullet PROPERTIES IMPORTED_LOCATION ${BULLET_COLLISION_LIBRARY})
-target_include_directories(Bullet SYSTEM INTERFACE ${BULLET_INCLUDE_DIR})
-target_link_libraries(Bullet INTERFACE ${BULLET_DYNAMICS_LIBRARY} ${BULLET_COLLISION_LIBRARY} ${BULLET_LINEAR_MATH_LIBRARY})
-
-link_libraries(Bullet)
+add_subdirectory(lib/bullet-2.80)
+link_libraries(BulletDynamics BulletCollision LinearMath)
+include_directories(lib/bullet-2.80/src/)
 
 include_directories(
     metasolver

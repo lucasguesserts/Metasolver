@@ -7,9 +7,9 @@ export INDIVIDUAL_VOLUME_USAGE_FILE_NAME="individual_volume_usage.log"
 export AVERAGE_VOLUME_USAGE_FILE_NAME="average_volume_usage.log"
 export INSTANCE_SET_LIST=$(seq 0 1 15)
 export INSTANCE_LIST=$(seq 0 1 9)
-export HALF_THREADS=$(expr `nproc --all` / 2)
-export NUMBER_OF_THREADS=$(($HALF_THREADS>0 ? $HALF_THREADS : 1))
-export SOLVER="/home/lucasguesserts/git_projects/Metasolver/build/BSG_CLP"
+export NUMBER_OF_THREADS_SELECTED=$(expr `nproc --all` / 2)
+export NUMBER_OF_THREADS=$(($NUMBER_OF_THREADS_SELECTED>0 ? $NUMBER_OF_THREADS_SELECTED : 1))
+export SOLVER="./build/BSG_CLP"
 export SOLVER_OPTIONS="--seed=42 --timelimit=30 --min_fr=0.98 --alpha=4 --beta=1 --gamma=0.2 -p0.04 -fBR --show_layout"
 
 

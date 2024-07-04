@@ -20,6 +20,8 @@ namespace metasolver {
  */
 class BSG : public SearchStrategy {
 public:
+	int greedy_calls = 0;
+
 	/**
 	 * Constructor
 	 * @param greedy The underlying greedy algorithm

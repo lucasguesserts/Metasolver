@@ -202,6 +202,7 @@ int main(int argc, char** argv){
 
     double eval=de->run(s_copy, maxtime, begin_time) ;
 
+	cout << "greedy search calls: " << bsg->greedy_calls << endl;
     cout << "% volume utilization" << endl;
 	cout << eval*100 << endl;
 	// << " " << de->get_best_state()->get_value2() << " " << eval*de->get_best_state()->get_value2() << endl;

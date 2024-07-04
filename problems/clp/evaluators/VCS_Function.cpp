@@ -71,8 +71,12 @@ double VCS_Function::eval_action(const State& s, const Action &a){
 		return ( pow(vol, delta)  * pow((1.0-loss), beta) * pow(cs, alpha) *
 				     pow(n,gamma) * pow(density, delta2) * pow(profit, delta3));
 	}
-
-	return (pow(vol, delta)  * pow((1.0-loss),beta) * pow(cs,alpha) * pow(n,gamma) );
+	auto const V = pow(vol, delta);
+	auto const CS = pow(cs,alpha);
+	auto const L = pow((1.0-loss),beta);
+	auto const N = pow(n,gamma);
+	auto fitness = V * CS * L * N;
+	return fitness;
 	//return (loss_vol + alpha * log (cs) + gamma*log(n) );
 }
 

@@ -7,6 +7,8 @@
 
 #include "BSG.h"
 
+#include "clpState.h"
+
 namespace metasolver {
 
 
@@ -16,7 +18,7 @@ BSG::~BSG(){
 }
 
 list<State*> BSG::next(list<State*>& S){
-    
+
 	// cout << "next" << endl;
      //no hay mas estados en el arbol
      if(S.size()==0) return S;
@@ -32,7 +34,7 @@ list<State*> BSG::next(list<State*>& S){
 
          //se obtiene la lista de las mejores acciones a partir del estado actual
          list< Action* > best_actions;
-         
+
          //each level of the search tree should explore max_level_size nodes, thus...
          int w =  (double) max_level_size / (double) S.size() + 0.5;
 
@@ -51,14 +53,30 @@ list<State*> BSG::next(list<State*>& S){
         	 delete *it;
 
              double value = greedy.run(state_copy, timelimit, begin_time);
+			 ++this->greedy_calls;
 
 
             //best_state update
              if(value > get_best_value()){
-            	 if(best_state) delete best_state; 
+            	 if(best_state) delete best_state;
             	 best_state = state_copy.clone();
             	 cout << "[BSG_path] new best_solution_found ("<< get_time() <<"): " << value << " "
             			 << best_state->get_path().size() << " nodes" << endl;
+				// print all best state actions
+				for (auto const & a : best_state->get_path()) {
+					const clp::clpAction& act = *dynamic_cast<const clp::clpAction*> (a);
+					cout << "block: " << act.block.getL() << ", "<< act.block.getW() << ", "<< act.block.getH();
+					cout << " -- in -- ";
+					cout << "empty space: " << act.space.getL() << ", " << act.space.getW() << ", " << act.space.getH();
+					cout << " -- on -- ";
+					auto anchor = act.space.get_anchor();
+					cout << "anchor: " << anchor[0] << ", " << anchor[1] << ", " << anchor[2];
+					cout << " -- at -- ";
+					auto loc = act.space.get_location(act.block);
+					cout << "location: " << loc.getX() << ", " << loc.getY() << ", " << loc.getZ();
+
+					cout << endl;
+				}
              }
 
 

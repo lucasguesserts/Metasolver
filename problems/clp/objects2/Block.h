@@ -81,13 +81,19 @@ public:
 	bool verify_solution();
 
     void MatLab_print(double pause_time=0.0) const {
-		cout << "axis equal" << endl;
-		cout <<  "DrawCuboid([" << getL() << ";" << getW() << ";" << getH() <<"],["
-			<< (double)getL()/2.0 << ";" <<
-			getW()/2.0 << ";" <<
-			getH()/2.0 << "],[0,0,0],[0 0 0], 0.0);" << endl;
+		cout << "{";
+		cout << "\"type\": \"output\"," << endl;
+		cout << "\"version\": \"0.5.0\"," << endl;
+		cout << "\"large_object\": { \"measurement\": {"
+			 << "\"x\":" << getL()
+			 << ", \"y\": " << getW()
+			 << ", \"z\": " << getH()
+			 << "} }," << endl;
+		cout << "\"small_items\": [" << endl;
 
 		MatLab_printR();
+
+		cout << "] }" << endl;
     }
 
 	map<const BoxShape*, int> nb_boxes;
@@ -119,7 +125,7 @@ protected:
        	   	const AABB* b=&blocks->top();
        	   	while(true){
        	   		if(i==1){
-       	   			cout << "pause(1);" << endl;
+       	   			// cout << "pause(1);" << endl;
        	   			R=double_rand(); G=double_rand(); B=double_rand(); ii++;
        	   		}
        	   		else j++;
@@ -133,11 +139,19 @@ protected:
     }
 
     void MatLab_print(int i, int j, double R, double G, double B, double alpha, Vector3 mins) const{
-    	cout << "a(" << i << "," << j << ")=DrawCuboid([" << getL() << ";" << getW() << ";" << getH() <<"],["
-             << (double) getL()/2.0 + (double) mins.getX() << ";" <<
-                (double) getW()/2.0 + (double) mins.getY() << ";" <<
-                (double) getH()/2.0 + (double) mins.getZ() << "],[0,0,0],["
-             << R << " " << G << " " << B << "]," << alpha << ");" << endl;
+		cout << "{";
+		cout << "\"measurement\": {";
+		cout << "\"x\": " << getL() << ", ";
+		cout << "\"y\": " << getW() << ", ";
+		cout << "\"z\": " << getH();
+		cout << "}, ";
+		cout << "\"position\": {";
+		cout << "\"x\": " << mins.getX() << ", ";
+		cout << "\"y\": " << mins.getY() << ", ";
+		cout << "\"z\": " << mins.getZ();
+		cout << "}";
+		cout << "},";
+		cout << endl;
     }
 
 	double occupied_volume;

@@ -8,9 +8,19 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/BSG_CLP",
+            "program": "${workspaceFolder}/build/Debug/BSG_CLP",
             "args": [
-                "problems/clp/benchs/BR/BR1.txt", "-i", "2", "-t", "10"
+                "problems/clp/benchs/BR/BR15.txt",
+                "-i", "0",
+                "--min_fr=0.98",
+                "--timelimit=30",
+                "--alpha=4",
+                "--beta=1",
+                "--gamma=0.2",
+                "-p0.04",
+                "-fBR",
+                "--seed=42",
+                "--show_layout"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

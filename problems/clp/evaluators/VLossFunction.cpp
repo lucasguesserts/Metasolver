@@ -56,7 +56,7 @@ double VLossFunction::Loss(const std::map<const BoxShape*, int>& nb_boxes, const
 
    long vloss=(mL[free_space.getL()]*mW[free_space.getW()]*mH[free_space.getH()]) -
                   ((free_space.getL()-lossL)*(free_space.getW() - lossW)*(free_space.getH()-lossH));
-   return (double) vloss / (double) (mL[free_space.getL()]*mW[free_space.getW()]*mH[free_space.getH()]);
+   return (double) vloss;
 }
 
 

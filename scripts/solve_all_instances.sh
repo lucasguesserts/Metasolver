@@ -17,9 +17,12 @@ export INSTANCE_LIST=$(seq 0 1 9)
 export NUMBER_OF_THREADS_SELECTED=`nproc --all`
 export NUMBER_OF_THREADS=$(($NUMBER_OF_THREADS_SELECTED>0 ? $NUMBER_OF_THREADS_SELECTED : 1))
 export SOLVER="${BUILD_DIR}/Release/BSG_CLP"
-export SOLVER_OPTIONS="--seed=42 --timelimit=30 --alpha=4 --beta=1 --gamma=0.2 -p0.04 -fBR --show_layout"
 export BLOCK_MINIMUM_FILL_RATE_OPTION="--min_fr"
 
+# Parameters from papers
+export SOLVER_TIMEOUT=30
+export ARAYA_2014_SOLVER_OPTIONS="--seed=42 --alpha=0.0 --beta=0.0 --gamma=0.0 -p0.0 -fBR --show_layout"
+export ARAYA_2017_SOLVER_OPTIONS="--seed=42 --alpha=4 --beta=1 --gamma=0.2 -p0.04 -fBR --show_layout"
 
 # auxiliary variables
 export INDIVIDUAL_VOLUME_USAGE_FILE_PATH="$OUTPUT_DIR/$INDIVIDUAL_VOLUME_USAGE_FILE_NAME"
@@ -45,7 +48,13 @@ solve_instance () {
     mkdir -p $INSTANCE_SET_OUTPUT_DIR
     LOG_FILE="${INSTANCE_SET_OUTPUT_DIR}/${INSTANCE}.log"
 
-    $SOLVER $INSTANCE_SET_INPUT_FILE $SOLVER_OPTIONS $BLOCK_MINIMUM_FILL_RATE_OPTION=$FILL_RATE -i $INSTANCE > $LOG_FILE
+    $SOLVER \
+        --timelimit=${SOLVER_TIMEOUT} \
+        $INSTANCE_SET_INPUT_FILE \
+        $ARAYA_2017_SOLVER_OPTIONS \
+        $BLOCK_MINIMUM_FILL_RATE_OPTION=$FILL_RATE \
+        -i $INSTANCE \
+        > $LOG_FILE
 }
 export -f solve_instance
 

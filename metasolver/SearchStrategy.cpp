@@ -8,6 +8,7 @@
 
 
 #include "SearchStrategy.h"
+#include "clpState.h"
 
 
 
@@ -50,7 +51,12 @@ int SearchStrategy::get_best_actions(const State& s, list< Action* >& bactions, 
 
 	//se colocan las acciones en la lista en el orden inverso
 	while(ranked_actions.size()>0){
-		//cout << "eval:" << ranked_actions.begin()->first << endl;
+		// cout << endl;
+		// cout << "ranked action fitness value = " << ranked_actions.begin()->first << endl;
+		// const auto & b = dynamic_cast<const clpAction*>(ranked_actions.begin()->second)->block;
+		// const auto & sp = dynamic_cast<const clpAction*>(ranked_actions.begin()->second)->space;
+		// std::cout << "ranked box:" << b << endl;
+		// std::cout << "ranked space:" << sp << endl;
 		bactions.push_front( ranked_actions.begin()->second );
 		ranked_actions.erase(ranked_actions.begin());
 	}

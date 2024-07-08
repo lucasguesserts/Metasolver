@@ -63,20 +63,20 @@ list<State*> BSG::next(list<State*>& S){
             	 cout << "[BSG_path] new best_solution_found ("<< get_time() <<"): " << value << " "
             			 << best_state->get_path().size() << " nodes" << endl;
 				// print all best state actions
-				for (auto const & a : best_state->get_path()) {
-					const clp::clpAction& act = *dynamic_cast<const clp::clpAction*> (a);
-					cout << "block: " << act.block.getL() << ", "<< act.block.getW() << ", "<< act.block.getH();
-					cout << " -- in -- ";
-					cout << "empty space: " << act.space.getL() << ", " << act.space.getW() << ", " << act.space.getH();
-					cout << " -- on -- ";
-					auto anchor = act.space.get_anchor();
-					cout << "anchor: " << anchor[0] << ", " << anchor[1] << ", " << anchor[2];
-					cout << " -- at -- ";
-					auto loc = act.space.get_location(act.block);
-					cout << "location: " << loc.getX() << ", " << loc.getY() << ", " << loc.getZ();
+				// for (auto const & a : best_state->get_path()) {
+				// 	const clp::clpAction& act = *dynamic_cast<const clp::clpAction*> (a);
+				// 	cout << "block: " << act.block.getL() << ", "<< act.block.getW() << ", "<< act.block.getH();
+				// 	cout << " -- in -- ";
+				// 	cout << "empty space: " << act.space.getL() << ", " << act.space.getW() << ", " << act.space.getH();
+				// 	cout << " -- on -- ";
+				// 	auto anchor = act.space.get_anchor();
+				// 	cout << "anchor: " << anchor[0] << ", " << anchor[1] << ", " << anchor[2];
+				// 	cout << " -- at -- ";
+				// 	auto loc = act.space.get_location(act.block);
+				// 	cout << "location: " << loc.getX() << ", " << loc.getY() << ", " << loc.getZ();
 
-					cout << endl;
-				}
+				// 	cout << endl;
+				// }
              }
 
 

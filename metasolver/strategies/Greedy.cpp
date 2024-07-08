@@ -6,6 +6,7 @@
  */
 
 #include "Greedy.h"
+#include "clpState.h"
 
 namespace metasolver {
 
@@ -15,8 +16,10 @@ list<State*> Greedy::next(list<State*>& S) {
 	Action* action = best_action(s);
 
 	if(action){
-		//std::cout << "selected box:" << action->block << endl;
-		//std::cout << "selected space:" << action->space << endl;
+		// const auto & b = dynamic_cast<const clpAction*>(action)->block;
+		// const Space& sp = dynamic_cast<const clpAction*>(action)->space;
+		// std::cout << "selected box:" << b << endl;
+		// std::cout << "selected space:" << sp << endl;
 
 		s.transition(*action);
 		delete action;

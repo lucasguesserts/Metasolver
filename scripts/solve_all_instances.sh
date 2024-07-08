@@ -1,17 +1,22 @@
 #!/bin/bash
 
+# Dirs
+export SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
+export SOURCE_DIR=$(realpath $SCRIPT_DIR/..)
+export BUILD_DIR=$(realpath $SCRIPT_DIR/../build)
+
 # Options
-export INPUT_DIR="problems/clp/benchs/BR/"
-export OUTPUT_DIR="out/"
+export INPUT_DIR="${SOURCE_DIR}/problems/clp/benchs/BR/"
+export OUTPUT_DIR="${SOURCE_DIR}/out/"
 export INDIVIDUAL_VOLUME_USAGE_FILE_NAME="individual_volume_usage.log"
 export AVERAGE_VOLUME_USAGE_FILE_NAME="average_volume_usage.log"
 export WEAKLY_HETEROGENEOUS_INSTANCE_SET=$(seq 0 1 7)
 export STRONGLY_HETEROGENEOUS_INSTANCE_SET=$(seq 8 1 15)
 export ALL_INSTANCE_SETS="$WEAKLY_HETEROGENEOUS_INSTANCE_SET $STRONGLY_HETEROGENEOUS_INSTANCE_SET"
 export INSTANCE_LIST=$(seq 0 1 9)
-export NUMBER_OF_THREADS_SELECTED=$(expr `nproc --all` / 2)
+export NUMBER_OF_THREADS_SELECTED=`nproc --all`
 export NUMBER_OF_THREADS=$(($NUMBER_OF_THREADS_SELECTED>0 ? $NUMBER_OF_THREADS_SELECTED : 1))
-export SOLVER="./build/Release/BSG_CLP"
+export SOLVER="${BUILD_DIR}/Release/BSG_CLP"
 export SOLVER_OPTIONS="--seed=42 --timelimit=30 --alpha=4 --beta=1 --gamma=0.2 -p0.04 -fBR --show_layout"
 export BLOCK_MINIMUM_FILL_RATE_OPTION="--min_fr"
 

@@ -8,10 +8,10 @@ export BUILD_DIR=$(realpath $SCRIPT_DIR/../build)
 # Variables
 export INPUT_DIR="${SOURCE_DIR}/problems/clp/benchs/BR/"
 export SOLVER="${BUILD_DIR}/Release/BSG_CLP"
-export SOLVER_TIMEOUT=30
+export SOLVER_TIMEOUT=5
 export SOLVER_MIN_FR=0.98
-export ARAYA_2014_SOLVER_OPTIONS="--seed=42 --alpha=0.0 --beta=0.0 --gamma=0.0 -p0.0 -fBR --show_layout"
-export ARAYA_2017_SOLVER_OPTIONS="--seed=42 --alpha=4 --beta=1 --gamma=0.2 -p0.04 -fBR --show_layout"
+export ARAYA_2014_SOLVER_OPTIONS="--seed=42 --alpha=0.0 --beta=0.0 --gamma=0.0 -p0.0 -fBR"
+export ARAYA_2017_SOLVER_OPTIONS="--seed=42 --alpha=4 --beta=1 --gamma=0.2 -p0.04 -fBR"
 
 
 solve () {
@@ -22,8 +22,8 @@ solve () {
         -i ${INSTANCE_NUMBER} \
         --timelimit=${SOLVER_TIMEOUT} \
         --min_fr=${SOLVER_MIN_FR} \
-        ${ARAYA_2017_SOLVER_OPTIONS}
+        ${ARAYA_2014_SOLVER_OPTIONS}
 }
 export -f solve
 
-solve 15 0
+solve 2 2

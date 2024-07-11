@@ -7,7 +7,7 @@ HALF_THREADS := $$(expr `nproc --all` / 2)
 NUMBER_OF_THREADS := $$(($(HALF_THREADS)>0 ? $(HALF_THREADS) : 1))
 
 PROFILE_EXECUTABLE := "$(BUILD_DIR)/BSG_CLP"
-PROFILE_EXECUTABLE_ARGS := problems/clp/benchs/BR/BR15.txt -i 0 --min_fr=0.98 --timelimit=30 --alpha=4 --beta=1 --gamma=0.2 -p0.04 -fBR --seed=42
+PROFILE_EXECUTABLE_ARGS := problems/clp/benchs/BR/BR2.txt -i 2 --min_fr=0.98 --timelimit=30 --alpha=0 --beta=0 --gamma=0.2 -p0.0 -fBR --seed=42
 FREQUENCY := 1000
 PERF_RECORD_OUTPUT := "perf.record.out"
 PERF_SCRIPT_OUTPUT := "perf.script.out"

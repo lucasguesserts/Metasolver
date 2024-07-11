@@ -5,7 +5,9 @@
  *      Author: iaraya
  */
 
+#include <algorithm>
 #include <map>
+#include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -355,6 +357,15 @@ void clpState::general_block_generator(double min_fr, int max_bl, const Vector3&
 		B.insert(B.end(),N.begin(),N.end());
 		P=N;
 	}
+	auto bv = std::vector<const Block*>(valid_blocks.begin(), valid_blocks.end());
+	std::sort(
+		bv.begin(),
+		bv.end(),
+		[](const Block* const lhs, const Block* const rhs) {
+			return lhs->getOccupiedVolume() > rhs->getOccupiedVolume();
+		}
+	);
+	valid_blocks = std::list<const Block*>(bv.begin(), bv.end());
 }
 
 

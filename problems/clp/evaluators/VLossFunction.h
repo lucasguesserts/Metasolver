@@ -5,6 +5,8 @@
  *      Author: iaraya
  */
 
+#include <vector>
+
 #include "../../metasolver/ActionEvaluator.h"
 #include "../objects2/Block.h"
 
@@ -31,7 +33,7 @@ protected:
 	 * Returns an upper bound of the capacity that we can fill of the dimension with the
 	 * leaving boxes
 	 */
-	long compute_maxX(const std::map<const BoxShape*, int>& nb_boxes, const Block& block, long& lossX, long resX, long* mX, std::set<const BoxShape*>* listX);
+	long compute_maxX(const std::map<const BoxShape*, int>& nb_boxes, const Block& block, long& lossX, long resX, std::vector<long> & mX, std::set<const BoxShape*>* listX);
 
 	/**
 	 * Solve the knapsack problem
@@ -53,11 +55,11 @@ private:
 	 * @param listX vector of lists of boxes
 	 * @param dim current dimension (0:L, 1:W, 2:H)
 	 */
-	void compute_mX(const std::map<const BoxShape*, int>& nb_boxes, int X, long *mX, std::set<const BoxShape*>* listX,  int dim);
+	void compute_mX(const std::map<const BoxShape*, int>& nb_boxes, int X, std::vector<long> & mX, std::set<const BoxShape*>* listX,  int dim);
 
 
     //for the knapsack solutions
-    long *mL, *mW, *mH;
+    std::vector<long> mL, mW, mH;
     std::set<const BoxShape*> *listL, *listW, *listH;
 };
 

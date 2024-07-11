@@ -8,6 +8,7 @@
 #include "VLossFunction.h"
 #include "../clpState.h"
 #include <map>
+#include <vector>
 
 #include "../objects2/BoxShape.h"
 #include "../objects2/Vector3.h"
@@ -20,9 +21,9 @@ VLossFunction::VLossFunction(const std::map<const BoxShape*, int>& nb_boxes, Vec
 				ActionEvaluator (r){
 	// TODO Auto-generated constructor stub
 
-	mL= new long[dims.getX()+1];
-    mW= new long[dims.getY()+1];
-    mH= new long[dims.getZ()+1];
+	mL= std::vector<long>(dims.getX()+1, 0);
+    mW= std::vector<long>(dims.getY()+1, 0);
+    mH= std::vector<long>(dims.getZ()+1, 0);
 
 	listL= new std::set<const BoxShape*>[dims.getX()+1];
     listW= new std::set<const BoxShape*>[dims.getY()+1];
@@ -33,12 +34,6 @@ VLossFunction::VLossFunction(const std::map<const BoxShape*, int>& nb_boxes, Vec
 }
 
 VLossFunction::~VLossFunction() {
-	 delete[] mL;
-	 delete[] mH;
-	 delete[] mW;
-	 delete[] listL;
-	 delete[] listH;
-	 delete[] listW;
 }
 
 
@@ -53,10 +48,10 @@ double VLossFunction::Loss(const std::map<const BoxShape*, int>& nb_boxes, const
    long maxW = compute_maxX(nb_boxes, block, lossW, resW, mW, listW);
    long maxH = compute_maxX(nb_boxes, block, lossH, resH, mH, listH);
 
-
-   long vloss=(mL[free_space.getL()]*mW[free_space.getW()]*mH[free_space.getH()]) -
-                  ((free_space.getL()-lossL)*(free_space.getW() - lossW)*(free_space.getH()-lossH));
-   return (double) vloss;
+	long large_volume = (mL[free_space.getL()]*mW[free_space.getW()]*mH[free_space.getH()]);
+	long small_volume = ((free_space.getL()-lossL)*(free_space.getW() - lossW)*(free_space.getH()-lossH));
+	long vloss = large_volume - small_volume;
+	return (double) vloss;
 }
 
 
@@ -70,7 +65,7 @@ void VLossFunction::solveKnapsack(const std::map<const BoxShape*, int>& nb_boxes
 }
 
 long VLossFunction::compute_maxX(const std::map<const BoxShape*, int>& nb_boxes, const Block& block,
-		long& lossX, long resX, long* mX,std::set<const  BoxShape*>* listX){
+		long& lossX, long resX, std::vector<long> & mX,std::set<const  BoxShape*>* listX){
    long maxX = mX[resX];
    while(maxX>0){
 	 for(std::set<const BoxShape*>::const_iterator it = listX[maxX].begin();it!=listX[maxX].end();it++){
@@ -92,7 +87,7 @@ long VLossFunction::compute_maxX(const std::map<const BoxShape*, int>& nb_boxes,
    return maxX;
 }
 
-void VLossFunction::compute_mX(const std::map<const BoxShape*, int>& nb_boxes, int X, long *mX,
+void VLossFunction::compute_mX(const std::map<const BoxShape*, int>& nb_boxes, int X, std::vector<long> & mX,
 		std::set<const BoxShape*>* listX,  int dim){
 	 bool flag[X+1]; flag[0]=true;
 

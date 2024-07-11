@@ -55,8 +55,9 @@ int SearchStrategy::get_best_actions(const State& s, list< Action* >& bactions, 
 		// cout << "ranked action fitness value = " << ranked_actions.begin()->first << endl;
 		// const auto & b = dynamic_cast<const clpAction*>(ranked_actions.begin()->second)->block;
 		// const auto & sp = dynamic_cast<const clpAction*>(ranked_actions.begin()->second)->space;
-		// std::cout << "ranked box:" << b << endl;
-		// std::cout << "ranked space:" << sp << endl;
+		// cout << "ranked box:" << b << endl;
+		// cout << "ranked space:" << sp << endl;
+		// cout << "corner:" << sp.get_anchor()[0] << sp.get_anchor()[1] << sp.get_anchor()[2] << endl << endl;
 		bactions.push_front( ranked_actions.begin()->second );
 		ranked_actions.erase(ranked_actions.begin());
 	}

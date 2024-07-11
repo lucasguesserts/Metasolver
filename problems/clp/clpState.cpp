@@ -289,11 +289,34 @@ clpState* new_state(string file, int i, double min_fr, int max_bl, clpState::For
 				//cout << "Wmax:" << clpState::weight_of_allboxes << endl;
 			}
 		}
-
 	}
 
 	//cout << "Test" << endl;
 	s->general_block_generator(min_fr, max_bl, *s->cont);
+
+	// auto largest_volume = double(0);
+	// auto average_volume = double(0);
+	// auto average_x = double(0);
+	// auto average_y = double(0);
+	// auto average_z = double(0);
+	// for (auto const & block : s->valid_blocks) {
+	// 	largest_volume = max(largest_volume, block->getVolume());
+	// 	average_volume += block->getVolume();
+	// 	average_x += block->getL();
+	// 	average_y += block->getW();
+	// 	average_z += block->getH();
+	// }
+	// average_volume = average_volume / s->valid_blocks.size();
+	// average_x = average_x / s->valid_blocks.size();
+	// average_y = average_y / s->valid_blocks.size();
+	// average_z = average_z / s->valid_blocks.size();
+	// cout << "block average values:" << endl;
+	// cout << "largest_volume = " << largest_volume << endl;
+	// cout << "average_volume = " << average_volume << endl;
+	// cout << "average_x = " << average_x << endl;
+	// cout << "average_y = " << average_y << endl;
+	// cout << "average_z = " << average_z << endl;
+
 	//cout << "Test2" << endl;
 	s->update_min_dim();
 	//cout << "Test3" << endl;
@@ -372,7 +395,12 @@ void clpState::_transition(const Action& action) {
 	//if(update) update_min_dim();
 
 	//se inserta el bloque en el contenedor
-	cont->insert(b, act.space.get_location(b), mindim);
+	auto position = act.space.get_location(b);
+	// std::cout << "block: " << b.getL() << ", " << b.getW() << ", " << b.getH() << endl;
+	// std::cout << "empty space: " << act.space.getL() << ", " << act.space.getW() << ", " << act.space.getH() << endl;
+	// std::cout << "corner: " << act.space.get_anchor()[0] << ", " << act.space.get_anchor()[1] << ", " << act.space.get_anchor()[2] << endl;
+	// std::cout << "initial position: " << position.getX() << ", " << position.getY() << ", " << position.getZ() << endl << endl;
+	cont->insert(b, position, mindim);
 
 	//se actualizan los bloques validos
 	update_valid_blocks();

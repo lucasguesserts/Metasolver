@@ -21,6 +21,7 @@ namespace metasolver {
 class BSG : public SearchStrategy {
 public:
 	int greedy_calls = 0;
+	int expand_calls = 0;
 
 	/**
 	 * Constructor

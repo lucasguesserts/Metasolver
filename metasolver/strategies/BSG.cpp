@@ -20,12 +20,15 @@ BSG::~BSG(){
 list<State*> BSG::next(list<State*>& S){
 
 	// cout << "next" << endl;
-     //no hay mas estados en el arbol
-     if(S.size()==0) return S;
+    //no hay mas estados en el arbol
+    if(S.size()==0) return S;
 
+	// cout << "S size = " << S.size() << endl;
+	++this->expand_calls;
      //se expanden los nodos de la lista S
      int i=0;
      for(list<State*>::iterator itS=S.begin(); itS!=S.end() && get_time()<=timelimit; itS++,i++){
+		// cout << "number of states: " << S.size() << endl;
          State& state=**itS;
         // cout << state.get_value() << endl;
 
@@ -38,6 +41,7 @@ list<State*> BSG::next(list<State*>& S){
          //each level of the search tree should explore max_level_size nodes, thus...
          int w =  (double) max_level_size / (double) S.size() + 0.5;
 
+		// cout << "\n\nselect blocks for expansion" << endl;
          get_best_actions(state, best_actions, w);
 
 
@@ -52,16 +56,18 @@ list<State*> BSG::next(list<State*>& S){
         	 //cout << state_copy.get_value() << endl;
         	 delete *it;
 
+			// cout << "--- start greedy ---" << endl;
+			// cout << "\n\nselect blocks for greedy search" << endl;
              double value = greedy.run(state_copy, timelimit, begin_time);
 			 ++this->greedy_calls;
+			// cout << "--- end greedy ---" << endl << endl;
 
 
             //best_state update
              if(value > get_best_value()){
             	 if(best_state) delete best_state;
             	 best_state = state_copy.clone();
-            	 cout << "[BSG_path] new best_solution_found ("<< get_time() <<"): " << value << " "
-            			 << best_state->get_path().size() << " nodes" << endl;
+            	cout << "[BSG_path] new best_solution_found ("<< get_time() <<"): " << value << " " << best_state->get_path().size() << " nodes" << endl;
 				// print all best state actions
 				// for (auto const & a : best_state->get_path()) {
 				// 	const clp::clpAction& act = *dynamic_cast<const clp::clpAction*> (a);

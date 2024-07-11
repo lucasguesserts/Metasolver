@@ -38,6 +38,9 @@ double VCS_Function::eval_action(const State& s, const Action &a){
 	const Space& sp =dynamic_cast<const clpAction*>(&a)->space;
 	const clpState* ss =dynamic_cast<const clpState*>(&s);
 
+	// cout << "block: " << b.getL() << ", " << b.getW() << ", " << b.getH() << endl;
+	// cout << "empty space: " << sp.getL() << ", " << sp.getW() << ", " << sp.getH() << endl;
+
     long resL=sp.getL() - b.getL();
     long resW=sp.getW() - b.getW();
     long resH=sp.getH() - b.getH();
@@ -48,6 +51,10 @@ double VCS_Function::eval_action(const State& s, const Action &a){
 	auto const V = b.getOccupiedVolume();
 	auto const V_loss = Loss(dynamic_cast<const clpState*>(&s)->nb_left_boxes, b, sp);
 	auto fitness = V - V_loss;
+	// cout << "V = " << V << endl;
+	// cout << "fr = " << b.getOccupiedVolume() * 1.0 / b.getVolume() << endl;
+	// cout << "V_loss = " << V_loss << endl;
+	// cout << "fitness = " << fitness << endl << endl;
 	return fitness;
 	//return (loss_vol + alpha * log (cs) + gamma*log(n) );
 }

@@ -14,13 +14,13 @@ export WEAKLY_HETEROGENEOUS_INSTANCE_SET=$(seq 0 1 7)
 export STRONGLY_HETEROGENEOUS_INSTANCE_SET=$(seq 8 1 15)
 export ALL_INSTANCE_SETS="$WEAKLY_HETEROGENEOUS_INSTANCE_SET $STRONGLY_HETEROGENEOUS_INSTANCE_SET"
 export INSTANCE_LIST=$(seq 0 1 9)
-export NUMBER_OF_THREADS_SELECTED=`nproc --all`
+export NUMBER_OF_THREADS_SELECTED=$((`nproc --all` - 3))
 export NUMBER_OF_THREADS=$(($NUMBER_OF_THREADS_SELECTED>0 ? $NUMBER_OF_THREADS_SELECTED : 1))
 export SOLVER="${BUILD_DIR}/Release/BSG_CLP"
 export BLOCK_MINIMUM_FILL_RATE_OPTION="--min_fr"
 
 # Parameters from papers
-export SOLVER_TIMEOUT=30
+export SOLVER_TIMEOUT=90
 export ARAYA_2014_SOLVER_OPTIONS="--seed=42 --alpha=0.0 --beta=0.0 --gamma=0.0 -p0.0 -fBR --show_layout"
 export ARAYA_2017_SOLVER_OPTIONS="--seed=42 --alpha=4 --beta=1 --gamma=0.2 -p0.04 -fBR --show_layout"
 

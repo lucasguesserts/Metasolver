@@ -6,7 +6,6 @@
  */
 
 #include <iostream>
-#include <limits>
 #include <math.h>
 #include "VLossFunction.h"
 #include "VCS_Function.h"
@@ -46,17 +45,50 @@ double VCS_Function::eval_action(const State& s, const Action &a){
     long resH=sp.getH() - b.getH();
 
 
-    if(resL<0 || resW<0 || resH<0) return numeric_limits<double>::lowest();
+    if(resL<0 || resW<0 || resH<0) return -1.0;
+    if(clpState::Wmax > 0.0 && ss->cont->getTotalWeight() + b.getTotalWeight() > clpState::Wmax) return -1.0;
 
-	auto const V = b.getOccupiedVolume();
-	auto const V_loss = Loss(dynamic_cast<const clpState*>(&s)->nb_left_boxes, b, sp);
-	auto fitness = V - V_loss;
+    double alpha=this->alpha + lambda2*(this->alpha_2 - this->alpha);
+    double beta=this->beta + lambda2*(this->beta_2 - this->beta);
+    double gamma=this->gamma + lambda2*(this->gamma_2 - this->gamma);
+    double p=this->p + lambda2*(this->p_2 - this->p);
+    double delta=this->delta + lambda2*(this->delta_2 - this->delta);
+    double delta2=this->delta2 + lambda2*(this->delta2_2 - this->delta2);
+    double delta3=this->delta3 + lambda2*(this->delta3_2 - this->delta3);
+
+	double loss=(beta>0.0)?
+			Loss(dynamic_cast<const clpState*>(&s)->nb_left_boxes, b, sp) : 0.0;
+
+	double vol=(delta>0.0)? (double) b.getOccupiedVolume(): 1.0;
+
+	double cs=(alpha>0.0)? CS_p(s, b, sp, p) : 1.0;
+
+	double n=(gamma>0.0)? (1.0/(double) b.n_boxes) : 1.0;
+
+
+	if(clpState::Wmax > 0.0){
+		double density = b.getTotalWeight() / (double) b.getVolume();
+		double profit = b.getTotalProfit();
+
+		return ( pow(vol, delta)  * pow((1.0-loss), beta) * pow(cs, alpha) *
+				     pow(n,gamma) * pow(density, delta2) * pow(profit, delta3));
+	}
+	auto const V = pow(vol, delta);
+	auto const CS = pow(cs,alpha);
+	auto const L = pow((1.0-loss),beta);
+	auto const N = pow(n,gamma);
+	auto fitness = V * CS * L * N;
+
+
+	// cout << "block: " << b.getL() << ", " << b.getW() << ", " << b.getH() << endl;
+	// cout << "empty space: " << sp.getL() << ", " << sp.getW() << ", " << sp.getH() << endl;
 	// cout << "V = " << V << endl;
-	// cout << "fr = " << b.getOccupiedVolume() * 1.0 / b.getVolume() << endl;
-	// cout << "V_loss = " << V_loss << endl;
+	// cout << "CS = " << CS << endl;
+	// cout << "L = " << L << endl;
+	// cout << "N = " << N << endl;
 	// cout << "fitness = " << fitness << endl << endl;
+
 	return fitness;
-	//return (loss_vol + alpha * log (cs) + gamma*log(n) );
 }
 
 double VCS_Function::CS_p(const State& s, const Block& b, const Space& sp, double p){

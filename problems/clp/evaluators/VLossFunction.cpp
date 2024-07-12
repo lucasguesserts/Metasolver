@@ -50,8 +50,10 @@ double VLossFunction::Loss(const std::map<const BoxShape*, int>& nb_boxes, const
 
 	long large_volume = (mL[free_space.getL()]*mW[free_space.getW()]*mH[free_space.getH()]);
 	long small_volume = ((free_space.getL()-lossL)*(free_space.getW() - lossW)*(free_space.getH()-lossH));
-	long vloss = large_volume - small_volume;
-	return (double) vloss;
+	double vloss = large_volume - small_volume;
+	double free_space_volume = (mL[free_space.getL()]*mW[free_space.getW()]*mH[free_space.getH()]);
+	double relative_vloss = vloss / free_space_volume;
+	return relative_vloss;
 }
 
 

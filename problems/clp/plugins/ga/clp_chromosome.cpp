@@ -77,8 +77,8 @@ Chromosome* ChromosomeFactoryCLP::generate_random_chromosome(ActionEvaluator* ev
 /**
  * Run the strategy
  */
-double ChromosomeCLP::run(State& s, double tl, clock_t bt){
-	begin_time=bt;
+double ChromosomeCLP::run(State& s, double tl, shared_ptr<boost::timer::cpu_timer> t){
+	timer=t;
 	timelimit=tl;
 	initialize(&s);
 

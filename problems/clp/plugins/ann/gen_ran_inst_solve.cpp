@@ -14,6 +14,10 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
+#include <memory>
+
+#include <boost/timer/timer.hpp>
+
 //#include "objects/State.cpp"
 #include "clpState.h"
 #include "clpStatekd.h"
@@ -184,7 +188,8 @@ void solve(string file, string path1, string path2, int _N, double min_fr, int m
 
     cout << "n_blocks:"<< s0->get_n_valid_blocks() << endl;
 
-    clock_t begin_time=clock();
+	shared_ptr<boost::timer::cpu_timer> timer = make_shared<boost::timer::cpu_timer>();
+	timer->start();
 
     VCS_Function* vcs = new VCS_Function(s0->nb_left_boxes, *s0->cont,
     alpha, beta, gamma, p, delta, f, r);
@@ -214,7 +219,7 @@ void solve(string file, string path1, string path2, int _N, double min_fr, int m
    // cout << s0.valid_blocks.size() << endl;
 
 	cout << "running" << endl;
-    double eval = 1-de->run(s_copy, max_time, begin_time) ;
+    double eval = 1-de->run(s_copy, max_time, timer) ;
 	cout << 1-eval << endl;
 
 

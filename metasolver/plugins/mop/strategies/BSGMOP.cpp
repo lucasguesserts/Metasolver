@@ -360,7 +360,7 @@ list<State*> BSG_MOP::next(list<State*>& S){
         	delete action;
 
         	//dynamic_cast<MO_ActionEvaluator*>(evl)->set_alpha(a_a.second);
-        	greedy.run(state_copy, timelimit, begin_time);
+        	greedy.run(state_copy, timelimit, timer);
 
         	pair<double, double> value = make_pair(state_copy.get_value(), state_copy.get_value2());
 

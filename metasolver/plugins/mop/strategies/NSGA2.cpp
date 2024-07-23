@@ -11,8 +11,8 @@
 
 
 
-double NSGA2::run(State& s, double tl, clock_t bt){
-	begin_time=bt;
+double NSGA2::run(State& s, double tl, shared_ptr<boost::timer::cpu_timer> t){
+	timer=t;
 	timelimit=tl;
 	s0=&s;
 
@@ -107,7 +107,7 @@ template<class container>
 void NSGA2::evaluate(container& children){
 	for(auto chrom : children){
 		State* s = s0->clone();
-		double value=chrom->run(*s, begin_time, timelimit);
+		double value=chrom->run(*s, timelimit, timer);
 		//best_state update
 		if(value > get_best_value()){
 			 if(best_state) delete best_state;

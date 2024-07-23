@@ -6,6 +6,10 @@
  */
 
 #include <iostream>
+#include <memory>
+
+#include <boost/timer/timer.hpp>
+
 #include "clpState.h"
 #include "VCS_Function.h"
 #include "SpaceSet.h"
@@ -57,7 +61,8 @@ int main(int argc, char** argv){
 
     cout << "n_blocks:"<< s0->get_n_valid_blocks() << endl;
 
-    clock_t begin_time=clock();
+	shared_ptr<boost::timer::cpu_timer> timer = make_shared<boost::timer::cpu_timer>();
+	timer->start();
 
     VCS_Function* vcs = new VCS_Function(s0->nb_left_boxes, *s0->cont,
     alpha, beta, gamma, p, delta);
@@ -72,7 +77,7 @@ int main(int argc, char** argv){
 	State& s_copy= *s0->clone();
 
    // cout << s0.valid_blocks.size() << endl;
-    double eval = 1-de->run(s_copy, max_time, begin_time) ;
+    double eval = 1-de->run(s_copy, max_time, timer) ;
 
     cout << "pareto_front" << endl;
     auto pareto = bsg->get_pareto_front();

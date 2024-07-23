@@ -1,14 +1,11 @@
-/*
- * main_clp.cpp
- *
- *  Created on: 29 jun. 2017
- *      Author: iaraya
- */
-
 #include <iostream>
 #include <fstream>
+#include <memory>
+
+#include <boost/timer/timer.hpp>
+
 #include "args.hxx"
-//#include "objects/State.cpp"
+
 #include "clpState.h"
 #include "clpStatekd.h"
 #include "BlockSet.h"
@@ -27,9 +24,6 @@ using namespace std;
 
 // para ejecutar (menos de 30 tipos de caja): BSG_CLP problems/clp/benchs/BR/BR7.txt 1 1.0 30 4.0 1.0 0.2 0.04 1.0 0.0 0.0 0 0
 // para ejecutar (mas de 30 tipos de caja): BSG_CLP problems/clp/benchs/BR/BR8.txt 1 0.98 30 4.0 1.0 0.2 0.04 1.0 0.0 0.0 0 0
-
-
-
 
 void dfsPrintChild(const State* node, ofstream& file){
 	file << "{ "<<endl;
@@ -156,7 +150,9 @@ int main(int argc, char** argv){
     //bool kdtree= false;
 
     Block::FSB=fsb;
-    clock_t begin_time=clock();
+
+	shared_ptr<boost::timer::cpu_timer> timer = make_shared<boost::timer::cpu_timer>();
+	timer->start();
 
     clpState* s0 = new_state(file,inst, min_fr, 10000, f);
 
@@ -166,8 +162,7 @@ int main(int argc, char** argv){
     cout << "n_blocks:"<< s0->get_n_valid_blocks() << endl;
 
 
-    VCS_Function* vcs = new VCS_Function(s0->nb_left_boxes, *s0->cont,
-    alpha, beta, gamma, p, delta, 0.0, r);
+	VCS_Function* vcs = new VCS_Function(s0->nb_left_boxes, *s0->cont, alpha, beta, gamma, p, delta, 0.0, r);
 
 	/*if(kdtree){
 		kd_block::set_vcs(*vcs);
@@ -200,9 +195,12 @@ int main(int argc, char** argv){
     if(_plot)
     	de=bsg;
 
-    double eval=de->run(s_copy, maxtime, begin_time) ;
+	double eval=de->run(s_copy, maxtime, timer);
+	timer->stop();
 
 	// cout << "expand calls: " << bsg->expand_calls << endl;
+	cout << "allocation time: " << static_cast<double>(timer->elapsed().user) / 1.0e+9 << endl;
+	cout << "wall time: " << static_cast<double>(timer->elapsed().wall) / 1.0e+9 << endl;
 	cout << "greedy search calls: " << bsg->greedy_calls << endl;
     cout << "% volume utilization" << endl;
 	cout << eval*100 << endl;

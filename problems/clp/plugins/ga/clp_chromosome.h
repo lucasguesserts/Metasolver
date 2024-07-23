@@ -82,7 +82,7 @@ public:
 	/**
 	 * Run the strategy
 	 */
-	virtual double run(State& s, double tl=99999.9, clock_t bt=clock());
+	virtual double run(State& s, double tl=99999.9, shared_ptr<boost::timer::cpu_timer> t=nullptr);
 
 
 

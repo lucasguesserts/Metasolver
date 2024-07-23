@@ -1,14 +1,11 @@
-/*
- * SearchStrategy.h
- *
- *  Created on: 01-06-2017
- *      Author: ignacio
- */
-
 #include <time.h>
 #include <stdio.h>
 #include <iostream>
 #include <list>
+#include <memory>
+
+#include <boost/timer/timer.hpp>
+
 #include "State.h"
 
 #ifndef SEARCHSTRATEGY_H_
@@ -21,15 +18,15 @@ namespace metasolver {
 //TODO: refactorizar
 class SearchStrategy {
 public:
-	SearchStrategy(ActionEvaluator* evl=NULL) : evl(evl), best_state(NULL), timelimit(0.0), begin_time(clock()) {} ;
+	SearchStrategy(ActionEvaluator* evl=NULL) : evl(evl), best_state(NULL), timelimit(0.0), timer(nullptr) {} ;
 
 	virtual ~SearchStrategy() {
 
 	}
 
 	double get_time(){
-		return (double(clock()-begin_time)/double(CLOCKS_PER_SEC));
-    }
+		return static_cast<double>(timer->elapsed().user) / 1.0e+9;
+	}
 
 
 
@@ -43,19 +40,19 @@ public:
 	/**
 	 * Run the strategy
 	 */
-	virtual double run(State& s, double tl=99999.9, clock_t bt=clock()){
+	virtual double run(State& s, double tl=99999.9, shared_ptr<boost::timer::cpu_timer> t=nullptr){
 		list<State*> S;
 		S.push_back(&s);
 		initialize (&s);
 
-		return run(S, tl, bt);
+		return run(S, tl, t);
 	}
 
 	/**
 	 * Run the strategy
 	 */
-	virtual double run(list<State*>& S, double tl=99999.9, clock_t bt=clock()){
-		begin_time=bt;
+	virtual double run(list<State*>& S, double tl=99999.9, shared_ptr<boost::timer::cpu_timer> t=nullptr){
+		timer = t;
 		timelimit=tl;
 
 		do{
@@ -103,20 +100,13 @@ public:
 
 
 protected:
-
-	/*
-	 * \brief return the best action according to the ActionEvaluator
-	 */
 	virtual Action* best_action(const State& s);
-
-
 
 	double timelimit;
 	State* best_state;
-	clock_t begin_time;
+	shared_ptr<boost::timer::cpu_timer> timer;
 
 	ActionEvaluator* evl;
-
 };
 
 } /* namespace clp */

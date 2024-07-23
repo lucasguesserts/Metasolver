@@ -22,7 +22,7 @@ public:
 	virtual list<State*> next(list<State*>& S){
 		State& s= **S.begin();
 
-		bsg.run(*s.clone(), timelimit, begin_time);
+		bsg.run(*s.clone(), timelimit, timer);
 
 
 		if(get_best_value() < bsg.get_best_value()){

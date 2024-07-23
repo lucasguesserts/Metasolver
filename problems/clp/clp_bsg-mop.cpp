@@ -7,6 +7,10 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
+
+#include <boost/timer/timer.hpp>
+
 #include "clpState.h"
 #include "VCS_Function.h"
 #include "SpaceSet.h"
@@ -138,7 +142,8 @@ int main(int argc, char** argv){
 	cout << "Maxtime:" << maxtime << endl;
 	cout << "ref_point: (" << ref.first << "," << ref.second << ")" << endl;
 
-	clock_t begin_time=clock();
+	shared_ptr<boost::timer::cpu_timer> timer = make_shared<boost::timer::cpu_timer>();
+	timer->start();
 
 	Block::FSB=fsb;
     clpState* s0 = new_state(file,inst, min_fr, max_blocks, f, fp);
@@ -203,16 +208,17 @@ int main(int argc, char** argv){
 	 //return 0;
 
 	cout << "***** Running the solver BSGMOP solver *****" << endl;
-    double eval = 1-de->run(s_copy, maxtime, begin_time) ;
+    double eval = 1-de->run(s_copy, maxtime, timer) ;
 
     if(strategy=="bsg_vp"){
     	cout << "running with bsg_p" << endl;
     	s_copy= *s0->clone();
     	bsg->set_rule(BSG_MOP::MIN2);
-      begin_time=clock();
+      shared_ptr<boost::timer::cpu_timer> timer = make_shared<boost::timer::cpu_timer>();
+      timer->start();
       vcs->set_parameters (theta_p);
       bsg->set_beams(4); bsg->initialize();
-      eval = 1-de->run(s_copy, maxtime, begin_time) ;
+      eval = 1-de->run(s_copy, maxtime, timer) ;
     }
 
     cout << "pareto_front" << endl;

@@ -20,7 +20,7 @@ export SOLVER="${BUILD_DIR}/Release/BSG_CLP"
 export BLOCK_MINIMUM_FILL_RATE_OPTION="--min_fr"
 
 # Parameters from papers
-export SOLVER_TIMEOUT=90
+export SOLVER_TIMEOUT=30
 export ARAYA_2014_SOLVER_OPTIONS="--seed=42 --alpha=0.0 --beta=0.0 --gamma=0.0 -p0.0 -fBR --show_layout"
 export ARAYA_2017_SOLVER_OPTIONS="--seed=42 --alpha=4 --beta=1 --gamma=0.2 -p0.04 -fBR --show_layout"
 
@@ -131,12 +131,10 @@ mkdir -p $OUTPUT_DIR
 parallel  \
     -j $NUMBER_OF_THREADS \
     --keep-order \
-    --linebuffer \
     solve_instance "1.00" ::: ${WEAKLY_HETEROGENEOUS_INSTANCE_SET} ::: ${INSTANCE_LIST}
 parallel  \
     -j $NUMBER_OF_THREADS \
     --keep-order \
-    --linebuffer \
     solve_instance "0.98" ::: ${STRONGLY_HETEROGENEOUS_INSTANCE_SET} ::: ${INSTANCE_LIST}
 
 
@@ -145,7 +143,6 @@ echo "instance_set,instance,volume_usage" > $INDIVIDUAL_VOLUME_USAGE_FILE_PATH
 parallel  \
     -j $NUMBER_OF_THREADS \
     --keep-order \
-    --linebuffer \
     extract_volume_usage ::: ${ALL_INSTANCE_SETS} ::: ${INSTANCE_LIST}
 
 

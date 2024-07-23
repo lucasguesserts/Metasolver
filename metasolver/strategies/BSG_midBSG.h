@@ -31,13 +31,13 @@ public:
 	/**
 	 * Run the strategy
 	 */
-	virtual double run(State& s, double tl=99999.9, clock_t bt=clock()){
+	virtual double run(State& s, double tl=99999.9, shared_ptr<boost::timer::cpu_timer> t=nullptr){
 
 		State* s0=s.clone();
 
 		list<State*> S;
 
-		BSG::run(s,tl,bt);
+		BSG::run(s,tl,t);
 
 	    map<double, pair<State*, State*> >::iterator state_action=state_actions.begin();
 
@@ -51,7 +51,7 @@ public:
         delete s0;
 
 		cout << "midBSG(" << S.size() << ")" << endl;
-		return BSG::run(S,tl,bt);
+		return BSG::run(S,tl,t);
 
 
 	}

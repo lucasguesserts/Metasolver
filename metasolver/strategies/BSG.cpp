@@ -58,7 +58,7 @@ list<State*> BSG::next(list<State*>& S){
 
 			// cout << "--- start greedy ---" << endl;
 			// cout << "\n\nselect blocks for greedy search" << endl;
-             double value = greedy.run(state_copy, timelimit, begin_time);
+             double value = greedy.run(state_copy, timelimit, timer);
 			 ++this->greedy_calls;
 			// cout << "--- end greedy ---" << endl << endl;
 

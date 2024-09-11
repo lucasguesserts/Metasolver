@@ -25,7 +25,7 @@ public:
 	}
 
 	double get_time(){
-		return static_cast<double>(timer->elapsed().user) / 1.0e+9;
+		return static_cast<double>(timer->elapsed().user + timer->elapsed().system) / 1.0e+9;
 	}
 
 

@@ -199,7 +199,7 @@ int main(int argc, char** argv){
 	timer->stop();
 
 	// cout << "expand calls: " << bsg->expand_calls << endl;
-	cout << "allocation time: " << static_cast<double>(timer->elapsed().user) / 1.0e+9 << endl;
+	cout << "allocation time: " << static_cast<double>(timer->elapsed().user + timer->elapsed().system) / 1.0e+9 << endl;
 	cout << "wall time: " << static_cast<double>(timer->elapsed().wall) / 1.0e+9 << endl;
 	cout << "greedy search calls: " << bsg->greedy_calls << endl;
     cout << "% volume utilization" << endl;

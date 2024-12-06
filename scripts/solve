@@ -1,0 +1,190 @@
+#!/usr/bin/env python3
+
+import os
+import argparse
+from concurrent.futures import ProcessPoolExecutor
+import subprocess
+import shutil
+
+
+solver_options = "--seed=42 --alpha=4 --beta=1 --gamma=0.2 -p0.04"
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(
+        description="Solve instances and process volume usage."
+    )
+    parser.add_argument(
+        "--input_dir",
+        type=str,
+        default="./problems/clp/benchs/BR/",
+        help="Input directory containing instance files.",
+    )
+    parser.add_argument(
+        "--output_dir",
+        type=str,
+        default="out",
+        help="Directory to store output files.",
+    )
+    parser.add_argument(
+        "--solver",
+        type=str,
+        default="./build/Release/BSG_CLP",
+        help="Path to the solver executable.",
+    )
+    parser.add_argument(
+        "--threads",
+        type=int,
+        default=max(os.cpu_count() - 5, 1),
+        help="Number of threads to use.",
+    )
+    parser.add_argument(
+        "--solver_timeout",
+        type=int,
+        default=30,
+        help="Solver timeout in seconds.",
+    )
+    parser.add_argument(
+        "--reduced",
+        help="Enabled: solve only the instances 1 to 10 (included) of all sets; Disabled: solve all instances available",
+        action=argparse.BooleanOptionalAction,
+    )
+    return parser.parse_args()
+
+
+def instance_set_output_dir(output_dir, instance_set):
+    return os.path.join(output_dir, f"set_{instance_set}")
+
+
+def solve_instance(
+    fill_rate,
+    instance_set,
+    instance,
+    solver,
+    input_dir,
+    output_dir,
+    solver_timeout,
+    solver_options,
+):
+    print(f"--- start - set {instance_set} - instance {instance}")
+
+    instance_set_input_file = os.path.join(input_dir, f"BR{instance_set}.txt")
+    instance_set_output_dir_path = instance_set_output_dir(output_dir, instance_set)
+    os.makedirs(instance_set_output_dir_path, exist_ok=True)
+    log_file = os.path.join(instance_set_output_dir_path, f"{instance}.log")
+    err_file = os.path.join(instance_set_output_dir_path, f"{instance}_error.log")
+
+    with open(log_file, "w") as log:
+        with open(err_file, "w") as err:
+            command = [
+                solver,
+                f"--timelimit={solver_timeout}",
+                *solver_options.split(" "),
+                f"--min_fr={fill_rate}",
+                f"-i",
+                str(instance),
+                instance_set_input_file,
+            ]
+            subprocess.run(
+                command,
+                stdout=log,
+                stderr=err,
+            )
+    print(f"=== finish - set {instance_set} - instance {instance}")
+
+
+def extract_volume_usage(instance_set, instance, output_dir, individual_volume_file):
+    instance_set_output_dir_path = instance_set_output_dir(output_dir, instance_set)
+    output_file = os.path.join(instance_set_output_dir_path, f"{instance}.log")
+
+    volume_usage = "-1"
+    if os.path.exists(output_file):
+        with open(output_file) as f:
+            lines = f.readlines()
+        for i, line in enumerate(lines):
+            if "% volume utilization" in line:
+                try:
+                    volume_usage = lines[i + 1].strip()
+                except IndexError:
+                    break
+
+    with open(individual_volume_file, "a") as f:
+        f.write(f"{instance_set},{instance},{volume_usage}\n")
+
+
+def compute_average_volume(individual_volume_file, average_volume_file):
+    instance_data = {}
+    with open(individual_volume_file) as f:
+        next(f)  # Skip header
+        for line in f:
+            instance_set, instance, volume_usage = line.strip().split(",")
+            instance_set = int(instance_set)
+            volume_usage = float(volume_usage)
+            if instance_set not in instance_data:
+                instance_data[instance_set] = []
+            instance_data[instance_set].append(volume_usage)
+
+    with open(average_volume_file, "w") as f:
+        for instance_set, volumes in instance_data.items():
+            average = sum(volumes) / len(volumes)
+            f.write(f"{instance_set},{average:.10f}\n")
+
+
+def main():
+    args = parse_arguments()
+
+    weakly_heterogeneous_instance_set = range(0, 8)
+    strongly_heterogeneous_instance_set = range(8, 16)
+    instance_list = range(10) if args.reduced else range(100)
+
+    individual_volume_usage_file = os.path.join(
+        args.output_dir, "individual_volume_usage.log"
+    )
+    average_volume_usage_file = os.path.join(
+        args.output_dir, "average_volume_usage.log"
+    )
+
+    if os.path.exists(args.output_dir):
+        shutil.rmtree(args.output_dir)
+    os.makedirs(args.output_dir, exist_ok=True)
+
+    with ProcessPoolExecutor(max_workers=args.threads) as executor:
+        for fill_rate, instance_set_range in [
+            (1.00, weakly_heterogeneous_instance_set),
+            (0.98, strongly_heterogeneous_instance_set),
+        ]:
+            for instance_set in instance_set_range:
+                for instance in instance_list:
+                    executor.submit(
+                        solve_instance,
+                        fill_rate,
+                        instance_set,
+                        instance,
+                        args.solver,
+                        args.input_dir,
+                        args.output_dir,
+                        args.solver_timeout,
+                        solver_options + " -fBR --show_layout",
+                    )
+
+    with open(individual_volume_usage_file, "w") as f:
+        f.write("instance_set,instance,volume_usage\n")
+
+    with ProcessPoolExecutor(max_workers=args.threads) as executor:
+        for instance_set in range(16):
+            for instance in instance_list:
+                extract_volume_usage(
+                    instance_set,
+                    instance,
+                    args.output_dir,
+                    individual_volume_usage_file,
+                )
+
+    compute_average_volume(individual_volume_usage_file, average_volume_usage_file)
+
+    with open(average_volume_usage_file) as f:
+        print(f.read())
+
+
+if __name__ == "__main__":
+    main()

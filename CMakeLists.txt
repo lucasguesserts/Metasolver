@@ -18,7 +18,6 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 # Dependencies
-
 ## Args
 include_directories(dependencies/args/)
 ## Bullet
@@ -26,24 +25,17 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w") # disable compile warnings for bull
 add_subdirectory(dependencies/bullet-2.80)
 link_libraries(BulletDynamics BulletCollision LinearMath)
 include_directories(dependencies/bullet-2.80/src/)
-
 ## Boost
 find_package(Boost COMPONENTS timer REQUIRED)
 link_libraries(Boost::boost Boost::timer)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror") # enable warnings
 
-include_directories(
-    src/
-    src/metasolver
-    src/metasolver/strategies/
-    src/containers
-    src/objects
-    src/evaluators
-)
+include_directories(src/)
 
-add_library(
-    clp
+add_executable(
+    BSG_CLP
+    src/main.cpp
     src/containers/AABBContainer.cpp
     src/containers/AABBTree.cpp
     src/evaluators/VCS_Function.cpp
@@ -61,6 +53,3 @@ add_library(
     src/metasolver/State.cpp
     src/metasolver/clpState.cpp
 )
-
-add_executable(BSG_CLP src/main.cpp)
-target_link_libraries(BSG_CLP clp)

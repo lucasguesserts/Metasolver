@@ -4,19 +4,20 @@
 
 #include <boost/timer/timer.hpp>
 
-#include "args.hxx"
+#include <args.hxx>
 
 #include "metasolver/strategies/BSG.h"
-#include "DoubleEffort.h"
-#include "GlobalVariables.h"
-#include "Greedy.h"
-#include "SpaceSet.h"
-#include "VCS_Function.h"
-#include "clpState.h"
+#include "metasolver/strategies/DoubleEffort.h"
+#include "metasolver/GlobalVariables.h"
+#include "metasolver/strategies/Greedy.h"
+#include "objects/SpaceSet.h"
+#include "evaluators/VCS_Function.h"
+#include "metasolver/clpState.h"
 
 bool global::TRACE = false;
 
 using namespace std;
+using namespace clp;
 
 // para ejecutar (menos de 30 tipos de caja): BSG_CLP instances/BR7.txt 1 1.0 30 4.0 1.0 0.2 0.04 1.0 0.0 0.0 0 0
 // para ejecutar (mas de 30 tipos de caja): BSG_CLP instances/BR8.txt 1 0.98 30 4.0 1.0 0.2 0.04 1.0 0.0 0.0 0 0

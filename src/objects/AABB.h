@@ -1,11 +1,12 @@
-#include <list>
-
 #include "objects/Block.h"
-#include "objects/Vector3.h"
-#include "objects/Volume.h"
 
 #ifndef AABB_H_
 #define AABB_H_
+
+#include <list>
+
+#include "objects/Vector3.h"
+#include "objects/Volume.h"
 
 using namespace std;
 

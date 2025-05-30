@@ -1,13 +1,13 @@
-#include "AABB.h"
-#include "AABBContainer.h"
-#include "GlobalVariables.h"
-#include "Space.h"
+#include "objects/AABB.h"
 
 #ifndef SPACESET_H_
 #define SPACESET_H_
 
+#include "containers/AABBContainer.h"
+#include "metasolver/GlobalVariables.h"
+#include "objects/Space.h"
+
 using namespace std;
-using namespace clp;
 
 namespace clp {
 

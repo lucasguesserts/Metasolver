@@ -22,12 +22,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 ## Args
 include_directories(dependencies/args/)
 ## Bullet
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w") # disable compile warnings for bullet
 add_subdirectory(dependencies/bullet-2.80)
 link_libraries(BulletDynamics BulletCollision LinearMath)
 include_directories(dependencies/bullet-2.80/src/)
+
 ## Boost
 find_package(Boost COMPONENTS timer REQUIRED)
 link_libraries(Boost::boost Boost::timer)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 
 include_directories(
     src/metasolver

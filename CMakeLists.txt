@@ -19,6 +19,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 # Dependencies
 
+## Args
+include_directories(dependencies/args/)
 ## Bullet
 add_subdirectory(dependencies/bullet-2.80)
 link_libraries(BulletDynamics BulletCollision LinearMath)
@@ -28,43 +30,43 @@ find_package(Boost COMPONENTS timer REQUIRED)
 link_libraries(Boost::boost Boost::timer)
 
 include_directories(
-    metasolver
-    metasolver/strategies/
-    problems/clp/containers
-    problems/clp/objects2
-    problems/clp/evaluators
-    problems/clp
+    src/metasolver
+    src/metasolver/strategies/
+    src/clp/containers
+    src/clp/objects2
+    src/clp/evaluators
+    src/clp
 )
 
 add_library(
     bsg
-    metasolver/SearchStrategy.cpp
-    metasolver/GlobalVariables.cpp
-    metasolver/strategies/BSG.cpp
-    metasolver/strategies/Greedy.cpp
-    metasolver/State.cpp
+    src/metasolver/SearchStrategy.cpp
+    src/metasolver/GlobalVariables.cpp
+    src/metasolver/strategies/BSG.cpp
+    src/metasolver/strategies/Greedy.cpp
+    src/metasolver/State.cpp
 )
 
 add_library(
     clp
-    problems/clp/containers/AABBContainer.cpp
-    problems/clp/containers/AABBTree.cpp
-    problems/clp/evaluators/VCS_Function.cpp
-    problems/clp/evaluators/VLossFunction.cpp
-    problems/clp/objects2/AABB.cpp
-    problems/clp/objects2/Block.cpp
-    problems/clp/objects2/BoxShape.cpp
-    problems/clp/objects2/Space.cpp
-    problems/clp/objects2/SpaceSet.cpp
-    problems/clp/objects2/Block_fsb.cpp
+    src/clp/containers/AABBContainer.cpp
+    src/clp/containers/AABBTree.cpp
+    src/clp/evaluators/VCS_Function.cpp
+    src/clp/evaluators/VLossFunction.cpp
+    src/clp/objects2/AABB.cpp
+    src/clp/objects2/Block.cpp
+    src/clp/objects2/BoxShape.cpp
+    src/clp/objects2/Space.cpp
+    src/clp/objects2/SpaceSet.cpp
+    src/clp/objects2/Block_fsb.cpp
 )
 
 add_library(
     clp_state
-    problems/clp/clpState.cpp
+    src/clp/clpState.cpp
 )
 
 # Executables
 
-add_executable(BSG_CLP problems/clp/main_clp.cpp)
+add_executable(BSG_CLP src/main.cpp)
 target_link_libraries(BSG_CLP clp_state clp bsg)

@@ -1,6 +1,4 @@
-#include "BSG.h"
-
-#include "clpState.h"
+#include "metasolver/strategies/BSG.h"
 
 namespace metasolver {
 

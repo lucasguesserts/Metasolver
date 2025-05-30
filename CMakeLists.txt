@@ -34,6 +34,7 @@ link_libraries(Boost::boost Boost::timer)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 
 include_directories(
+    src/
     src/metasolver
     src/metasolver/strategies/
     src/containers

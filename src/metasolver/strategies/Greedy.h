@@ -1,8 +1,8 @@
-#include "../ActionEvaluator.h"
-#include "../SearchStrategy.h"
-
 #ifndef GREEDY_H_
 #define GREEDY_H_
+
+#include "metasolver/ActionEvaluator.h"
+#include "metasolver/SearchStrategy.h"
 
 using namespace std;
 

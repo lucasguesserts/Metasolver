@@ -1,10 +1,10 @@
-#include <vector>
-
-#include "../../metasolver/ActionEvaluator.h"
-#include "../objects/Block.h"
-
 #ifndef HEURISTICS_VLOSSFUNCTION_H_
 #define HEURISTICS_VLOSSFUNCTION_H_
+
+#include <vector>
+
+#include "metasolver/ActionEvaluator.h"
+#include "objects/Block.h"
 
 using namespace metasolver;
 

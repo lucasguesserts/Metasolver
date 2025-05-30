@@ -1,8 +1,9 @@
 #ifndef VCS_FUNCTION_H_
 #define VCS_FUNCTION_H_
 
-#include "VLossFunction.h"
 #include <vector>
+
+#include "evaluators/VLossFunction.h"
 
 using namespace std;
 

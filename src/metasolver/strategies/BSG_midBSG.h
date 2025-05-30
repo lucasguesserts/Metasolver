@@ -3,9 +3,8 @@
 
 #include <iostream>
 #include <list>
-#include <stdio.h>
 
-#include "BSG.h"
+#include "metasolver/strategies/BSG.h"
 
 using namespace std;
 

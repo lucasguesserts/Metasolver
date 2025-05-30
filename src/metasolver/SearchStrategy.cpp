@@ -1,6 +1,6 @@
 
 
-#include "SearchStrategy.h"
+#include "metasolver/SearchStrategy.h"
 #include "clpState.h"
 
 namespace metasolver {

@@ -1,10 +1,9 @@
-#include "VLossFunction.h"
-#include "../clpState.h"
 #include <map>
 #include <vector>
 
-#include "../objects/BoxShape.h"
-#include "../objects/Vector3.h"
+#include "evaluators/VLossFunction.h"
+#include "objects/BoxShape.h"
+#include "objects/Vector3.h"
 
 using namespace std;
 

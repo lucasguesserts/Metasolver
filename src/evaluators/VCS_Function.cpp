@@ -1,11 +1,10 @@
-#include "VCS_Function.h"
-#include "../../metasolver/GlobalVariables.h"
-#include "../clpState.h"
-#include "../objects/AABB.h"
-#include "../objects/Block.h"
-#include "VLossFunction.h"
-#include <iostream>
-#include <math.h>
+#include <cmath>
+
+#include "evaluators/VCS_Function.h"
+#include "metasolver/clpState.h"
+#include "objects/AABB.h"
+#include "objects/Block.h"
+#include "evaluators/VLossFunction.h"
 
 using namespace std;
 

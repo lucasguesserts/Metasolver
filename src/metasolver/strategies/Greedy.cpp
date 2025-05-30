@@ -1,5 +1,5 @@
-#include "Greedy.h"
-#include "clpState.h"
+
+#include "metasolver/strategies/Greedy.h"
 
 namespace metasolver {
 

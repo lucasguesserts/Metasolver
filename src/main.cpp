@@ -6,7 +6,7 @@
 
 #include "args.hxx"
 
-#include "BSG.h"
+#include "metasolver/strategies/BSG.h"
 #include "DoubleEffort.h"
 #include "GlobalVariables.h"
 #include "Greedy.h"

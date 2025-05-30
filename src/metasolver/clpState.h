@@ -168,4 +168,4 @@ clpState * new_state(string file, int instance, double min_fr = 0.98, int max_bl
 
 } /* namespace clp */
 
-#endif /* CLPSTATE_H_ */
+#endif

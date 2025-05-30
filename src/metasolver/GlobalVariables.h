@@ -10,4 +10,4 @@ public:
 
 } // namespace metasolver
 
-#endif /* GLOBALVARIABLES_H_ */
+#endif

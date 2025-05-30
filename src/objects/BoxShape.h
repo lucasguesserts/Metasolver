@@ -52,4 +52,4 @@ private:
 
 } /* namespace clp */
 
-#endif /* OBJECTS_BOXSHAPE_H_ */
+#endif

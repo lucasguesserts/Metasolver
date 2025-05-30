@@ -58,4 +58,4 @@ protected:
 
 } /* namespace clp */
 
-#endif /* HVCS_FUNCTION_H_ */
+#endif

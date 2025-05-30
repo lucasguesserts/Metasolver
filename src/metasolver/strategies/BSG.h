@@ -163,4 +163,4 @@ protected:
 
 } // namespace metasolver
 
-#endif /* STRATEGIES_BSG_H_ */
+#endif

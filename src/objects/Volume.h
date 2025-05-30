@@ -43,6 +43,8 @@ public:
             return getY();
         case 2:
             return getZ();
+		default:
+			throw std::runtime_error("invalid value provided to Volume::get_i");
         }
     }
 
@@ -62,12 +64,10 @@ public:
 
     double getVolume() const { return volume; }
 
-    // virtual ~Volume();
-
 protected:
     double volume;
 };
 
 } /* namespace clp */
 
-#endif /* OBJECTS_VOLUME_H_ */
+#endif

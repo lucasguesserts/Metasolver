@@ -73,4 +73,4 @@ protected:
 
 } /* namespace clp */
 
-#endif /* SPACESET_H_ */
+#endif

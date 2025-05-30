@@ -85,4 +85,4 @@ private:
 
 } /* namespace clp */
 
-#endif /* AABBContainer_H_ */
+#endif

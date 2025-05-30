@@ -110,4 +110,4 @@ protected:
 
 } // namespace metasolver
 
-#endif /* SEARCHSTRATEGY_H_ */
+#endif

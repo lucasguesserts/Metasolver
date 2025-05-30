@@ -112,4 +112,4 @@ protected:
 
 } // namespace metasolver
 
-#endif /* STATE_H_ */
+#endif

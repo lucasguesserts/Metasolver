@@ -53,4 +53,4 @@ private:
 
 } // namespace metasolver
 
-#endif /* HEURISTIC_FUNCTION_H_ */
+#endif

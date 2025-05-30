@@ -21,4 +21,4 @@ public:
 
 } // namespace metasolver
 
-#endif /* GREEDY_H_ */
+#endif

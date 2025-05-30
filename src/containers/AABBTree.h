@@ -108,4 +108,4 @@ list<const T *> AABBTree<T>::get_bisected_objects(long cut) const {
 
 } /* namespace clp */
 
-#endif /* AABBCONTAINER_AABBTREE_H_ */
+#endif

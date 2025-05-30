@@ -47,4 +47,4 @@ public:
 
 } // namespace metasolver
 
-#endif /* BSG_MIDBSG */
+#endif

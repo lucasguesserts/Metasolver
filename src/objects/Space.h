@@ -38,4 +38,4 @@ private:
 };
 
 } // namespace clp
-#endif /* SPACE_H_ */
+#endif

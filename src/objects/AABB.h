@@ -89,4 +89,4 @@ inline std::ostream & operator<<(std::ostream & os, const AABB & ab) {
 }
 
 } // namespace clp
-#endif /* AABB_H */
+#endif

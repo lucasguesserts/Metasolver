@@ -196,4 +196,4 @@ private:
 
 } // namespace clp
 
-#endif /* BLOCK_H_ */
+#endif

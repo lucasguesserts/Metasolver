@@ -57,4 +57,4 @@ private:
 
 } /* namespace clp */
 
-#endif /* AABBCONTAINER_AABBLIST_H_ */
+#endif

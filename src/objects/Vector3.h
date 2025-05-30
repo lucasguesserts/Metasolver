@@ -93,4 +93,4 @@ inline std::ostream & operator<<(std::ostream & os, const Vector3 & v) {
 
 } /* namespace clp */
 
-#endif /* OBJECTS_VECTOR3_H_ */
+#endif

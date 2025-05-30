@@ -37,4 +37,4 @@ private:
 
 } // namespace metasolver
 
-#endif /* STRATEGIES_DOUBLEEFFORT_H_ */
+#endif

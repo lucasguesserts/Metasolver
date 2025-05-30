@@ -54,4 +54,4 @@ private:
 
 } /* namespace clp */
 
-#endif /* HEURISTICS_VLOSSFUNCTION_H_ */
+#endif

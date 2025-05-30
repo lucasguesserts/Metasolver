@@ -32,41 +32,30 @@ link_libraries(Boost::boost Boost::timer)
 include_directories(
     src/metasolver
     src/metasolver/strategies/
-    src/clp/containers
-    src/clp/objects2
-    src/clp/evaluators
-    src/clp
+    src/containers
+    src/objects2
+    src/evaluators
 )
 
 add_library(
-    bsg
+    clp
+    src/containers/AABBContainer.cpp
+    src/containers/AABBTree.cpp
+    src/evaluators/VCS_Function.cpp
+    src/evaluators/VLossFunction.cpp
+    src/objects2/AABB.cpp
+    src/objects2/Block.cpp
+    src/objects2/BoxShape.cpp
+    src/objects2/Space.cpp
+    src/objects2/SpaceSet.cpp
+    src/objects2/Block_fsb.cpp
     src/metasolver/SearchStrategy.cpp
     src/metasolver/GlobalVariables.cpp
     src/metasolver/strategies/BSG.cpp
     src/metasolver/strategies/Greedy.cpp
     src/metasolver/State.cpp
+    src/metasolver/clpState.cpp
 )
-
-add_library(
-    clp
-    src/clp/containers/AABBContainer.cpp
-    src/clp/containers/AABBTree.cpp
-    src/clp/evaluators/VCS_Function.cpp
-    src/clp/evaluators/VLossFunction.cpp
-    src/clp/objects2/AABB.cpp
-    src/clp/objects2/Block.cpp
-    src/clp/objects2/BoxShape.cpp
-    src/clp/objects2/Space.cpp
-    src/clp/objects2/SpaceSet.cpp
-    src/clp/objects2/Block_fsb.cpp
-)
-
-add_library(
-    clp_state
-    src/clp/clpState.cpp
-)
-
-# Executables
 
 add_executable(BSG_CLP src/main.cpp)
-target_link_libraries(BSG_CLP clp_state clp bsg)
+target_link_libraries(BSG_CLP clp)

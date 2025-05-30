@@ -15,7 +15,7 @@
 #include <string>
 
 #include "../metasolver/State.h"
-#include "objects2/Block.h"
+#include "Block.h"
 
 
 using namespace std;

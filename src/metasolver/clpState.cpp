@@ -13,7 +13,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "objects2/BoxShape.h"
+#include "BoxShape.h"
 #include "clpState.h"
 
 using namespace std;

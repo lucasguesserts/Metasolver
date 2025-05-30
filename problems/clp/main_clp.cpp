@@ -7,8 +7,6 @@
 #include "args.hxx"
 
 #include "clpState.h"
-#include "clpStatekd.h"
-#include "BlockSet.h"
 #include "BSG_midBSG.h"
 #include "VCS_Function.h"
 #include "VCS_Function.h"
@@ -22,8 +20,8 @@ bool global::TRACE = false;
 
 using namespace std;
 
-// para ejecutar (menos de 30 tipos de caja): BSG_CLP problems/clp/benchs/BR/BR7.txt 1 1.0 30 4.0 1.0 0.2 0.04 1.0 0.0 0.0 0 0
-// para ejecutar (mas de 30 tipos de caja): BSG_CLP problems/clp/benchs/BR/BR8.txt 1 0.98 30 4.0 1.0 0.2 0.04 1.0 0.0 0.0 0 0
+// para ejecutar (menos de 30 tipos de caja): BSG_CLP instances/BR7.txt 1 1.0 30 4.0 1.0 0.2 0.04 1.0 0.0 0.0 0 0
+// para ejecutar (mas de 30 tipos de caja): BSG_CLP instances/BR8.txt 1 0.98 30 4.0 1.0 0.2 0.04 1.0 0.0 0.0 0 0
 
 void dfsPrintChild(const State* node, ofstream& file){
 	file << "{ "<<endl;
@@ -147,7 +145,6 @@ int main(int argc, char** argv){
 	cout << "Maxtime:" << maxtime << endl;
 
 	double r=0.0; //0.0
-    //bool kdtree= false;
 
     Block::FSB=fsb;
 
@@ -156,19 +153,9 @@ int main(int argc, char** argv){
 
     clpState* s0 = new_state(file,inst, min_fr, 10000, f);
 
-    //if(kdtree)
-      // s0 = new clpState_kd(*s0);
-
     cout << "n_blocks:"<< s0->get_n_valid_blocks() << endl;
 
-
 	VCS_Function* vcs = new VCS_Function(s0->nb_left_boxes, *s0->cont, alpha, beta, gamma, p, delta, 0.0, r);
-
-	/*if(kdtree){
-		kd_block::set_vcs(*vcs);
-		kd_block::set_alpha(alpha);
-		kd_block::set_alpha(p);
-	}*/
 
 	//for(int i=0;i<10000; i++)
 	//	exp->best_action(*s0);

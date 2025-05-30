@@ -34,10 +34,6 @@ include_directories(
     problems/clp/objects2
     problems/clp/evaluators
     problems/clp
-    problems/clp/plugins/kdtree
-    problems/clp/plugins/ga
-    problems/mclp
-    metasolver/plugins/mop/strategies/
 )
 
 add_library(
@@ -47,18 +43,6 @@ add_library(
     metasolver/strategies/BSG.cpp
     metasolver/strategies/Greedy.cpp
     metasolver/State.cpp
-)
-
-add_library(
-    bsg_mop
-    metasolver/plugins/mop/strategies/BSGMOP.cpp
-)
-
-add_library(
-    nsga2
-    metasolver/plugins/mop/strategies/Chromosome.cpp
-    metasolver/plugins/mop/strategies/NSGA2.cpp
-    problems/clp/plugins/ga/clp_chromosome.cpp
 )
 
 add_library(
@@ -80,49 +64,17 @@ add_library(
     problems/clp/clpState.cpp
 )
 
-add_library(
-    mclp_state
-    problems/mclp/mclp-state.cpp
-)
-
-add_library(
-    clp_kdtree
-    problems/clp/plugins/kdtree/clpStatekd.cpp
-    problems/clp/plugins/kdtree/kdNode.cpp
-    problems/clp/plugins/kdtree/BlockSet.cpp
-)
-
 # Executables
 
-add_executable(MCLP problems/mclp/main/mclp-solver.cpp)
-target_link_libraries(MCLP mclp_state  clp bsg)
-
 add_executable(BSG_CLP problems/clp/main_clp.cpp)
-target_link_libraries(BSG_CLP clp_state clp clp_kdtree bsg)
-
-add_executable(BSG_CLP_ANN problems/clp/plugins/ann/main_clp_ann.cpp)
-target_link_libraries(BSG_CLP_ANN clp_state clp clp_kdtree bsg)
-
-add_executable(CLP_GENSOLV problems/clp/plugins/ann/gen_ran_inst_solve.cpp)
-target_link_libraries(CLP_GENSOLV clp_state clp clp_kdtree bsg)
-
-add_executable(BSG_B problems/clp/clp_bsg-mop.cpp)
-target_link_libraries(BSG_B bsg_mop clp_state clp bsg)
-
-add_executable(CLP_gen problems/clp/ClpInstanceGenerator.cpp)
-
-add_executable(NSGA_CLP problems/clp/plugins/ga/main.cpp)
-target_link_libraries(NSGA_CLP clp_state clp nsga2 bsg)
+target_link_libraries(BSG_CLP clp_state clp bsg)
 
 # Tests
 
 enable_testing()
 
 add_executable(test_BSG_CLP problems/clp/test_clp.cpp)
-target_link_libraries(test_BSG_CLP clp_state clp clp_kdtree bsg)
-
-add_executable(test_BSGMOP_CLP problems/clp/test_clp_mop.cpp)
-target_link_libraries(test_BSGMOP_CLP bsg_mop clp_state clp bsg)
+target_link_libraries(test_BSG_CLP clp_state clp bsg)
 
 add_test(
     NAME o-search

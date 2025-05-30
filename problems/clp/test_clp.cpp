@@ -12,8 +12,6 @@
 
 //#include "objects/State.cpp"
 #include "clpState.h"
-#include "clpStatekd.h"
-#include "BlockSet.h"
 #include "BSG_midBSG.h"
 #include "VCS_Function.h"
 #include "VCS_Function.h"
@@ -45,7 +43,6 @@ int main(int argc, char** argv){
 		double f=atof(argv[10]);
     double r=atof(argv[11]);
     bool fsb=(atoi(argv[12])==1);
-    bool kdtree=atoi(argv[13]);
 
 	srand(1);
 
@@ -59,9 +56,6 @@ int main(int argc, char** argv){
     Block::FSB=fsb;
     clpState* s0 = new_state(file,inst, min_fr, 100);
 
-    if(kdtree)
-       s0 = new clpState_kd(*s0);
-
     cout << "n_blocks:"<< s0->get_n_valid_blocks() << endl;
 
 	shared_ptr<boost::timer::cpu_timer> timer = make_shared<boost::timer::cpu_timer>();
@@ -69,12 +63,6 @@ int main(int argc, char** argv){
 
     VCS_Function* vcs = new VCS_Function(s0->nb_left_boxes, *s0->cont,
     alpha, beta, gamma, p, delta, f, r);
-
-	if(kdtree){
-		kd_block::set_vcs(*vcs);
-		kd_block::set_alpha(alpha);
-		kd_block::set_alpha(p);
-	}
 
 	//for(int i=0;i<10000; i++)
 	//	exp->best_action(*s0);

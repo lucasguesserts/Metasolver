@@ -1,8 +1,4 @@
-#include "Block.h"
-
-#include <iostream>
-
-using namespace std;
+#include "objects/Block.h"
 
 namespace clp {
 

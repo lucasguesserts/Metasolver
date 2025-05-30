@@ -1,6 +1,4 @@
-#include "AABB.h"
-
-using namespace std;
+#include "objects/AABB.h"
 
 namespace clp {
 

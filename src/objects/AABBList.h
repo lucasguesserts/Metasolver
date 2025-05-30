@@ -1,8 +1,6 @@
 #ifndef AABBCONTAINER_AABBLIST_H_
 #define AABBCONTAINER_AABBLIST_H_
 
-using namespace std;
-
 namespace clp {
 
 /**

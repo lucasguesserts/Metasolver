@@ -2,7 +2,7 @@
 #define OBJECTS_VECTOR3_H_
 
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 namespace clp {
 

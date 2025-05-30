@@ -1,14 +1,15 @@
 #ifndef BLOCK_H_
 #define BLOCK_H_
 
-#include "../containers/AABBContainer.h"
-#include "AABBList.h"
-#include "BoxShape.h"
-#include "Space.h"
-#include "SpaceSet.h"
-#include "Volume.h"
 #include <list>
 #include <map>
+
+#include "containers/AABBContainer.h"
+#include "objects/AABBList.h"
+#include "objects/BoxShape.h"
+#include "objects/Space.h"
+#include "objects/SpaceSet.h"
+#include "objects/Volume.h"
 
 using namespace std;
 

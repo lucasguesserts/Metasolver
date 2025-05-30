@@ -1,15 +1,17 @@
-#include "btBulletDynamicsCommon.h"
-#include <BulletCollision/BroadphaseCollision/btDbvt.h>
-#include <iostream>
-#include <set>
-
-#include "../objects/AABB.h"
-#include "AABBTree.h"
-
-using namespace std;
+#include "objects/AABB.h"
 
 #ifndef AABBContainer_H_
 #define AABBContainer_H_
+
+#include <iostream>
+#include <set>
+
+#include "btBulletDynamicsCommon.h"
+#include <BulletCollision/BroadphaseCollision/btDbvt.h>
+
+#include "containers/AABBTree.h"
+
+using namespace std;
 
 namespace clp {
 

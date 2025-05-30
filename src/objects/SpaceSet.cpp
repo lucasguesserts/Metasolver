@@ -1,7 +1,7 @@
-#include "SpaceSet.h"
+#include "objects/SpaceSet.h"
 
-#include "AABB.h"
-#include "Space.h"
+#include "objects/AABB.h"
+#include "objects/Space.h"
 
 using namespace std;
 using namespace metasolver;

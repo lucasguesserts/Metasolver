@@ -1,7 +1,7 @@
-#include "Volume.h"
-
 #ifndef OBJECTS_BOXSHAPE_H_
 #define OBJECTS_BOXSHAPE_H_
+
+#include "objects/Volume.h"
 
 namespace clp {
 

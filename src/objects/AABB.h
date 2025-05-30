@@ -1,9 +1,8 @@
 #include <list>
-#include <stdio.h>
 
-#include "Block.h"
-#include "Vector3.h"
-#include "Volume.h"
+#include "objects/Block.h"
+#include "objects/Vector3.h"
+#include "objects/Volume.h"
 
 #ifndef AABB_H_
 #define AABB_H_

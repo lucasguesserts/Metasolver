@@ -1,11 +1,13 @@
-#include "btBulletDynamicsCommon.h"
-#include <map>
-
-#include "../objects/AABB.h"
-#include "../objects/Space.h"
+#include "objects/AABB.h"
 
 #ifndef AABBCONTAINER_AABBTREE_H_
 #define AABBCONTAINER_AABBTREE_H_
+
+#include <map>
+
+#include "btBulletDynamicsCommon.h"
+
+#include "objects/Space.h"
 
 using namespace std;
 

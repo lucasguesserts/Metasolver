@@ -1,7 +1,7 @@
-#include "Vector3.h"
-
 #ifndef OBJECTS_VOLUME_H_
 #define OBJECTS_VOLUME_H_
+
+#include "objects/Vector3.h"
 
 namespace clp {
 

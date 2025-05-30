@@ -1,6 +1,5 @@
-#include "Space.h"
-
-#include "Block.h"
+#include "objects/Space.h"
+#include "objects/Block.h"
 
 namespace clp {
 

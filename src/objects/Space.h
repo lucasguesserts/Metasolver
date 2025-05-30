@@ -3,48 +3,39 @@
 
 #include "AABB.h"
 
-namespace clp{
+namespace clp {
 
 class Space : public AABB {
 
 public:
+    Space(const AABB & object, const Vector3 & cont);
 
+    Space(const Vector3 & vec);
 
-	Space(const AABB& object, const Vector3& cont) ;
+    virtual ~Space();
 
-	Space(const Vector3& vec) ;
+    Vector3 get_location(const Vector3 & block) const;
 
-	virtual ~Space();
+    inline int get_manhattan_distance() const { return manhattan_distance; }
 
-	Vector3 get_location(const Vector3& block) const;
+    int get_manhattan_distance(const Vector3 & cont, const bool * anchor) const;
 
-	inline int get_manhattan_distance() const {return manhattan_distance;}
+    /**
+     * @return Returns true if sp1 is lexicographically lower than sp2,
+     * otherwise returns false
+     */
+    friend bool lex_lower(const Space & sp1, const Space & sp2);
 
-	int get_manhattan_distance(const Vector3& cont, const bool* anchor) const;
+    void initialize(const Vector3 & cont);
 
-	/**
-	 * @return Returns true if sp1 is lexicographically lower than sp2,
-	 * otherwise returns false
-	 */
-	friend bool lex_lower(const Space& sp1, const Space& sp2);
+    const bool * get_anchor() const { return anchor; }
 
-
-	void initialize(const Vector3& cont);
-
-	const bool* get_anchor() const {return anchor;}
-
-
-	static bool bottom_up;
-
+    static bool bottom_up;
 
 private:
-	bool anchor[3];
-	int manhattan_distance;
-
+    bool anchor[3];
+    int manhattan_distance;
 };
 
-
-
-
-}
+} // namespace clp
 #endif /* SPACE_H_ */

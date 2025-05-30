@@ -3,15 +3,15 @@
 
 namespace metasolver {
 
-int State::count_states=0;
+int State::count_states = 0;
 
-Action* State::next_action(State& final){
-    if(get_path().size() >= final.get_path().size() ) return NULL;
+Action * State::next_action(State & final) {
+    if (get_path().size() >= final.get_path().size()) return NULL;
 
-    list< const Action* >::iterator act=final.get_path().begin();
-    advance(act,get_path().size());
+    list<const Action *>::iterator act = final.get_path().begin();
+    advance(act, get_path().size());
 
-	return (*act)->clone();
+    return (*act)->clone();
 }
 
-}
+} // namespace metasolver

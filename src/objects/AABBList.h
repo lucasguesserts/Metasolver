@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 namespace clp {
 
 /**
@@ -12,48 +11,49 @@ namespace clp {
 
 class AABBList : public AABBContainer<AABB> {
 public:
+    AABBList() {}
 
-	AABBList ( ) { }
+    AABBList(const AABBContainer<AABB> & a)
+        : AABBContainer<AABB>() {
+        if (a.size() > 0) {
+            const AABB * obj = &a.top();
+            while (true) {
+                insert(*obj);
+                if (a.has_next()) obj = &a.next();
+                else break;
+            }
+        }
+    }
 
-	AABBList (const AABBContainer<AABB>& a) : AABBContainer<AABB>() {
-		if(a.size()>0){
-			const AABB* obj=&a.top();
-			while(true){
-				insert(*obj);
-				if(a.has_next()) obj=&a.next();
-				else break;
-			}
-		}
-	}
+    virtual const AABB * _insert(const AABB & object) {
+        data.push_back(object);
+        // cout << "insert_box:" <<  data.back() << endl;
+        return &data.back();
+    }
 
-	virtual const AABB* _insert(const AABB& object){
-		data.push_back(object);
-		//cout << "insert_box:" <<  data.back() << endl;
-		return &data.back();
-	}
+    virtual void _erase(const AABB & object) {
+        data.remove(object);
+    }
 
-	virtual void _erase(const AABB& object){
-		data.remove(object);
-	}
+    virtual const AABB & top() const {
+        data_it = data.begin();
+        const AABB & sp = *data_it;
+        data_it++;
+        return sp;
+    }
 
-	virtual const AABB& top() const{
-		data_it = data.begin();
-		const AABB& sp=*data_it; data_it++;
-		return sp;
-	}
+    virtual bool has_next() const { return (data_it != data.end()); }
 
-    virtual bool has_next() const{ return (data_it != data.end()); }
-
-    virtual const AABB& next() const{
-    	const AABB& sp=*data_it; data_it++;
-		return sp;
+    virtual const AABB & next() const {
+        const AABB & sp = *data_it;
+        data_it++;
+        return sp;
     };
 
 private:
-	list<AABB> data;
-	mutable list<AABB>::const_iterator data_it;
+    list<AABB> data;
+    mutable list<AABB>::const_iterator data_it;
 };
-
 
 } /* namespace clp */
 

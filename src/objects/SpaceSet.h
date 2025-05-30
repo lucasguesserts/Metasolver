@@ -1,7 +1,7 @@
 #include "AABB.h"
-#include "Space.h"
 #include "AABBContainer.h"
 #include "GlobalVariables.h"
+#include "Space.h"
 
 #ifndef SPACESET_H_
 #define SPACESET_H_
@@ -11,39 +11,39 @@ using namespace clp;
 
 namespace clp {
 
-
 struct by_manhattan_distance {
-    bool operator()(const Space& sp1, const Space& sp2);
+    bool operator()(const Space & sp1, const Space & sp2);
 };
-
 
 /**
  * Class for keeping free spaces of a Block
  */
 
-//class AABBContainer;
+// class AABBContainer;
 
 class SpaceSet : public AABBContainer<Space> {
 public:
+    SpaceSet(Vector3 & cont)
+        : cont(cont)
+        , marked(NULL) {}
 
+    SpaceSet(const AABBContainer<Space> & a, Vector3 & cont)
+        : AABBContainer<Space>()
+        , cont(cont)
+        , marked(NULL) {
+        if (a.size() > 0) {
+            const Space * obj = &a.top();
+            while (true) {
+                insert(*obj);
+                if (a.has_next()) obj = &a.next();
+                else break;
+            }
+        }
+    }
 
-	SpaceSet (Vector3& cont ) : cont(cont), marked(NULL) { }
+    virtual ~SpaceSet() {}
 
-	SpaceSet (const AABBContainer<Space>& a, Vector3& cont) : AABBContainer<Space>(), cont(cont), marked(NULL) {
-		if(a.size()>0){
-			const Space* obj=&a.top();
-			while(true){
-				insert(*obj);
-				if(a.has_next()) obj=&a.next();
-				else break;
-			}
-		}
-	}
-
-
-	virtual ~SpaceSet() { }
-
-	virtual const Space& top() const;
+    virtual const Space & top() const;
 
     virtual bool has_next() const;
 
@@ -52,31 +52,24 @@ public:
      */
     virtual void pop();
 
+    virtual const Space & next() const;
 
-    virtual const Space& next() const;
-
-    virtual void crop_volume(const AABB& volume, const Vector3& cont, const Vector3& min_dim);
-
-
+    virtual void crop_volume(const AABB & volume, const Vector3 & cont, const Vector3 & min_dim);
 
 protected:
-	virtual const Space* _insert(const Space& sp);
+    virtual const Space * _insert(const Space & sp);
 
-	virtual void _erase(const Space& sp);
+    virtual void _erase(const Space & sp);
 
-	void remove_nonmaximal_objects(list<Space>& objs);
+    void remove_nonmaximal_objects(list<Space> & objs);
 
-	set<Space, by_manhattan_distance> data;
-	mutable set<Space, by_manhattan_distance>::const_iterator data_it;
+    set<Space, by_manhattan_distance> data;
+    mutable set<Space, by_manhattan_distance>::const_iterator data_it;
 
-
-	Vector3 cont;
-	//this vairable points the spaces returned by the last top
-	mutable const Space* marked;
+    Vector3 cont;
+    // this vairable points the spaces returned by the last top
+    mutable const Space * marked;
 };
-
-
-
 
 } /* namespace clp */
 

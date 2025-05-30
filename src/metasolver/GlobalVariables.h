@@ -3,11 +3,11 @@
 
 namespace metasolver {
 
-class global{
+class global {
 public:
-	static bool TRACE;
+    static bool TRACE;
 };
 
-} /* namespace clp */
+} // namespace metasolver
 
 #endif /* GLOBALVARIABLES_H_ */

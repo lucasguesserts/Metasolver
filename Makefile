@@ -12,5 +12,8 @@ build:
 	cmake . -B $(BUILD_DIR) -DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
 	cmake --build $(BUILD_DIR) -- -j $(NUMBER_OF_THREADS)
 
+enforce_code_style:
+	find src/ -iname "*.hpp" -o -iname "*.cpp" -o -iname "*.h" | xargs clang-format -i
+
 clean:
 	rm -rf $(BUILD_DIR) .cache/ *.log

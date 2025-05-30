@@ -3,13 +3,8 @@
 
 namespace clp {
 
+class SpaceSet;
+class RandSpaceSet;
+class AABBList;
 
-
-
-
-class SpaceSet ;
-class RandSpaceSet ;
-class AABBList ;
-
-}
-
+} // namespace clp

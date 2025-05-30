@@ -7,42 +7,65 @@ namespace clp {
 
 class Volume : public Vector3 {
 public:
-	Volume(double l, double w, double h) : Vector3(l,w,h), volume(l*w*h) {}
+    Volume(double l, double w, double h)
+        : Vector3(l, w, h)
+        , volume(l * w * h) {}
 
-	long getL() const {return getX();}
-	long getW() const {return getY();}
-	long getH() const {return getZ();}
+    long getL() const { return getX(); }
+    long getW() const { return getY(); }
+    long getH() const { return getZ(); }
 
-	double getL_d() const {return getX_d();}
-	double getW_d() const {return getY_d();}
-	double getH_d() const {return getZ_d();}
+    double getL_d() const { return getX_d(); }
+    double getW_d() const { return getY_d(); }
+    double getH_d() const { return getZ_d(); }
 
-	void setL(double xx) {volume/=getX(); volume*=xx; setX(xx);}
-	void setW(double yy) {volume/=getY(); volume*=yy; setY(yy);}
-	void setH(double zz) {volume/=getZ(); volume*=zz; setZ(zz);}
+    void setL(double xx) {
+        volume /= getX();
+        volume *= xx;
+        setX(xx);
+    }
+    void setW(double yy) {
+        volume /= getY();
+        volume *= yy;
+        setY(yy);
+    }
+    void setH(double zz) {
+        volume /= getZ();
+        volume *= zz;
+        setZ(zz);
+    }
 
-	long get_i(int i) const{
-		switch(i){
-			case 0: return getX();
-			case 1: return getY();
-			case 2: return getZ();
-		}
-	}
+    long get_i(int i) const {
+        switch (i) {
+        case 0:
+            return getX();
+        case 1:
+            return getY();
+        case 2:
+            return getZ();
+        }
+    }
 
-	void set_i(long xx, int i){
-		switch(i){
-			case 0: setL(xx); break;
-			case 1: setW(xx); break;
-			case 2: setH(xx); break;
-		}
-	}
+    void set_i(long xx, int i) {
+        switch (i) {
+        case 0:
+            setL(xx);
+            break;
+        case 1:
+            setW(xx);
+            break;
+        case 2:
+            setH(xx);
+            break;
+        }
+    }
 
-	double getVolume() const {return volume;}
+    double getVolume() const { return volume; }
 
-	//virtual ~Volume();
+    // virtual ~Volume();
 
 protected:
-	double volume;
+    double volume;
 };
 
 } /* namespace clp */

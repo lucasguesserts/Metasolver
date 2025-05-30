@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "../../metasolver/ActionEvaluator.h"
-#include "../objects2/Block.h"
+#include "../objects/Block.h"
 
 #ifndef HEURISTICS_VLOSSFUNCTION_H_
 #define HEURISTICS_VLOSSFUNCTION_H_

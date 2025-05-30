@@ -10,8 +10,8 @@
 #include <map>
 #include <vector>
 
-#include "../objects2/BoxShape.h"
-#include "../objects2/Vector3.h"
+#include "../objects/BoxShape.h"
+#include "../objects/Vector3.h"
 
 using namespace std;
 

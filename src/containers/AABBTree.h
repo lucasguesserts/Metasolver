@@ -8,8 +8,8 @@
 #include "btBulletDynamicsCommon.h"
 #include <map>
 
-#include "../objects2/AABB.h"
-#include "../objects2/Space.h"
+#include "../objects/AABB.h"
+#include "../objects/Space.h"
 
 #ifndef AABBCONTAINER_AABBTREE_H_
 #define AABBCONTAINER_AABBTREE_H_

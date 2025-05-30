@@ -33,7 +33,7 @@ include_directories(
     src/metasolver
     src/metasolver/strategies/
     src/containers
-    src/objects2
+    src/objects
     src/evaluators
 )
 
@@ -43,12 +43,12 @@ add_library(
     src/containers/AABBTree.cpp
     src/evaluators/VCS_Function.cpp
     src/evaluators/VLossFunction.cpp
-    src/objects2/AABB.cpp
-    src/objects2/Block.cpp
-    src/objects2/BoxShape.cpp
-    src/objects2/Space.cpp
-    src/objects2/SpaceSet.cpp
-    src/objects2/Block_fsb.cpp
+    src/objects/AABB.cpp
+    src/objects/Block.cpp
+    src/objects/BoxShape.cpp
+    src/objects/Space.cpp
+    src/objects/SpaceSet.cpp
+    src/objects/Block_fsb.cpp
     src/metasolver/SearchStrategy.cpp
     src/metasolver/GlobalVariables.cpp
     src/metasolver/strategies/BSG.cpp

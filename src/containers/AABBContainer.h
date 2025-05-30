@@ -10,7 +10,7 @@
 #include <set>
 #include <iostream>
 
-#include "../objects2/AABB.h"
+#include "../objects/AABB.h"
 #include "AABBTree.h"
 
 using namespace std;

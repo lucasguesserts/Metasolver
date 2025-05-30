@@ -10,8 +10,8 @@
 #include "VLossFunction.h"
 #include "VCS_Function.h"
 #include "../clpState.h"
-#include "../objects2/AABB.h"
-#include "../objects2/Block.h"
+#include "../objects/AABB.h"
+#include "../objects/Block.h"
 #include "../../metasolver/GlobalVariables.h"
 
 using namespace std;

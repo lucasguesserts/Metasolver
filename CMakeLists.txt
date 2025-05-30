@@ -20,9 +20,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 # Dependencies
 
 ## Bullet
-add_subdirectory(lib/bullet-2.80)
+add_subdirectory(dependencies/bullet-2.80)
 link_libraries(BulletDynamics BulletCollision LinearMath)
-include_directories(lib/bullet-2.80/src/)
+include_directories(dependencies/bullet-2.80/src/)
 ## Boost
 find_package(Boost COMPONENTS timer REQUIRED)
 link_libraries(Boost::boost Boost::timer)

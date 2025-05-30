@@ -1,10 +1,3 @@
-/*
- * BSGpath.h
- *
- *  Created on: 12 jul. 2017
- *      Author: iaraya
- */
-
 #ifndef STRATEGIES_BSG_H_
 #define STRATEGIES_BSG_H_
 

@@ -1,10 +1,3 @@
-/*
- * Space.cpp
- *
- *  Created on: 01-06-2017
- *      Author: ignacio
- */
-
 #include "Space.h"
 
 #include "Block.h"

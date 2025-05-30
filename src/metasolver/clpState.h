@@ -1,10 +1,3 @@
-/*
- * clpState.h
- *
- *  Created on: 4 jul. 2017
- *      Author: iaraya
- */
-
 
 
 

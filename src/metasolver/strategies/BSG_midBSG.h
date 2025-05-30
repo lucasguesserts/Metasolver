@@ -1,10 +1,3 @@
-/*
- * BSGblockextraction.h
- *
- *  Created on: 2 ago. 2017
- *      Author: iaraya
- */
-
 #ifndef BSG_MIDBSG
 #define BSG_MIDBSG
 

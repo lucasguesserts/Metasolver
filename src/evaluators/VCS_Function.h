@@ -1,10 +1,3 @@
-/*
- * VCS.h
- *
- *  Created on: 2 jun. 2017
- *      Author: iaraya
- */
-
 #ifndef VCS_FUNCTION_H_
 #define VCS_FUNCTION_H_
 

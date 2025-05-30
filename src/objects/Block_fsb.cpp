@@ -1,10 +1,3 @@
-/*
- * Blockfsb.cpp
- *
- *  Created on: 11 jul. 2017
- *      Author: iaraya
- */
-
 
 #include "Block.h"
 

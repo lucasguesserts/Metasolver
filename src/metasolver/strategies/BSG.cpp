@@ -1,10 +1,3 @@
-/*
- * BSGpath.cpp
- *
- *  Created on: 12 jul. 2017
- *      Author: iaraya
- */
-
 #include "BSG.h"
 
 #include "clpState.h"

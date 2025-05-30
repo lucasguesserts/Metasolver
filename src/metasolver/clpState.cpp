@@ -1,10 +1,3 @@
-/*
- * clpState.cpp
- *
- *  Created on: 4 jul. 2017
- *      Author: iaraya
- */
-
 #include <algorithm>
 #include <map>
 #include <vector>

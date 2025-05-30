@@ -1,10 +1,3 @@
-/*
- * AABBList.h
- *
- *  Created on: 23-06-2017
- *      Author: ignacio
- */
-
 #ifndef AABBCONTAINER_AABBLIST_H_
 #define AABBCONTAINER_AABBLIST_H_
 

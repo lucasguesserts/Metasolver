@@ -1,10 +1,3 @@
-/*
- * DoubleEffort.h
- *
- *  Created on: 6 jul. 2017
- *      Author: iaraya
- */
-
 #ifndef STRATEGIES_DOUBLEEFFORT_H_
 #define STRATEGIES_DOUBLEEFFORT_H_
 #include "SearchStrategy.h"

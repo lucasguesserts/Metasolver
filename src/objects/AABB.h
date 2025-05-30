@@ -1,10 +1,3 @@
-/*
- * Box.h
- *
- *  Created on: 01-06-2017
- *      Author: ignacio
- */
-
 #include <stdio.h>
 #include <list>
 

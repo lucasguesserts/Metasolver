@@ -1,10 +1,3 @@
-/*
- * AABB.cpp
- *
- *  Created on: 01-06-2017
- *      Author: ignacio
- */
-
 #include "AABB.h"
 
 using namespace std;

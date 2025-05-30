@@ -1,10 +1,3 @@
-/*
- * VCS.cpp
- *
- *  Created on: 2 jun. 2017
- *      Author: iaraya
- */
-
 #include <iostream>
 #include <math.h>
 #include "VLossFunction.h"

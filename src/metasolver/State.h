@@ -1,10 +1,3 @@
-/*
- * State.h
- *
- *  Created on: 01-06-2017
- *      Author: ignacio
- */
-
 #include <map>
 #include <string>
 #include <list>
@@ -79,7 +72,7 @@ public:
 		path.push_back(action.clone());
 		_transition(action);
 	}
-	
+
 	/*
 	* Rearranges the elements in the path randomly
 	*/

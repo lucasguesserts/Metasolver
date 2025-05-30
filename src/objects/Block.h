@@ -1,10 +1,3 @@
-/*
- * Block.h
- *
- *  Created on: 01-06-2017
- *      Author: ignacio
- */
-
 #ifndef BLOCK_H_
 #define BLOCK_H_
 

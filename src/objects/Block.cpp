@@ -1,10 +1,3 @@
-/*
- * Block.cpp
- *
- *  Created on: 01-06-2017
- *      Author: ignacio
- */
-
 #include "Block.h"
 
 #include <iostream>

@@ -1,10 +1,3 @@
-/*
- * Space.h
- *
- *  Created on: 01-06-2017
- *      Author: ignacio
- */
-
 #ifndef SPACE_H_
 #define SPACE_H_
 

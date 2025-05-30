@@ -1,10 +1,3 @@
-/*
- * AABBTree.h
- *
- *  Created on: 23-06-2017
- *      Author: ignacio
- */
-
 #include "btBulletDynamicsCommon.h"
 #include <map>
 

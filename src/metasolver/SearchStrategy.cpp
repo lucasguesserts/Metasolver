@@ -1,10 +1,3 @@
-/*
- * SearchStrategy.cpp
- *
- *  Created on: 19 oct. 2017
- *      Author: iaraya
- */
-
 
 
 #include "SearchStrategy.h"

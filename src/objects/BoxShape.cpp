@@ -1,10 +1,3 @@
-/*
- * Box.cpp
- *
- *  Created on: 2 jun. 2017
- *      Author: iaraya
- */
-
 #include "BoxShape.h"
 #include <math.h>
 

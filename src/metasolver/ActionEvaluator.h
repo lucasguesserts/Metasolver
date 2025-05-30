@@ -1,10 +1,3 @@
-/*
- * Greedy.h
- *
- *  Created on: 01-06-2017
- *      Author: ignacio
- */
-
 #include <cstdlib>
 #include <math.h>
 #include "State.h"

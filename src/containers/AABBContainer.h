@@ -1,10 +1,3 @@
-/*
- * AABBContainer.h
- *
- *  Created on: 01-06-2017
- *      Author: ignacio
- */
-
 #include "btBulletDynamicsCommon.h"
 #include <BulletCollision/BroadphaseCollision/btDbvt.h>
 #include <set>

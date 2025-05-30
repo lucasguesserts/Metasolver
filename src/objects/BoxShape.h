@@ -1,10 +1,3 @@
-/*
- * Box.h
- *
- *  Created on: 2 jun. 2017
- *      Author: iaraya
- */
-
 #include "Volume.h"
 
 #ifndef OBJECTS_BOXSHAPE_H_

@@ -7,7 +7,6 @@
 #include "args.hxx"
 
 #include "clpState.h"
-#include "BSG_midBSG.h"
 #include "VCS_Function.h"
 #include "VCS_Function.h"
 #include "SpaceSet.h"

@@ -1,10 +1,3 @@
-/*
- * VLossFunction.cpp
- *
- *  Created on: 2 jun. 2017
- *      Author: iaraya
- */
-
 #include "VLossFunction.h"
 #include "../clpState.h"
 #include <map>

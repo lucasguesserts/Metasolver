@@ -1,10 +1,3 @@
-/*
- * State.cpp
- *
- *  Created on: 4 sept. 2018
- *      Author: iaraya
- */
-
 
 #include "State.h"
 

@@ -1,10 +1,3 @@
-/*
- * AABBTree.cpp
- *
- *  Created on: 23-06-2017
- *      Author: ignacio
- */
-
 #include "AABBTree.h"
 
 namespace clp {

@@ -1,10 +1,3 @@
-/*
- * SpaceSet.h
- *
- *  Created on: 23-06-2017
- *      Author: ignacio
- */
-
 #include "AABB.h"
 #include "Space.h"
 #include "AABBContainer.h"

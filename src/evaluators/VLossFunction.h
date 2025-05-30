@@ -1,10 +1,3 @@
-/*
- * VLossFunction.h
- *
- *  Created on: 2 jun. 2017
- *      Author: iaraya
- */
-
 #include <vector>
 
 #include "../../metasolver/ActionEvaluator.h"

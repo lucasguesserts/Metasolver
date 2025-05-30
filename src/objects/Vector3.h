@@ -1,12 +1,6 @@
-/*
- * Vector3.h
- *
- *  Created on: 02-06-2017
- *      Author: ignacio
- */
-
 #ifndef OBJECTS_VECTOR3_H_
 #define OBJECTS_VECTOR3_H_
+
 #include <iostream>
 #include <math.h>
 

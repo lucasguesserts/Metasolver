@@ -1,11 +1,3 @@
-/*
- * Volume.h
- *
- *  Created on: 02-06-2017
- *      Author: ignacio
- */
-
-#include <iostream>
 #include "Vector3.h"
 
 #ifndef OBJECTS_VOLUME_H_

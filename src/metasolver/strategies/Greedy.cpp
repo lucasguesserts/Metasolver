@@ -1,4 +1,3 @@
-
 #include "metasolver/strategies/Greedy.h"
 
 namespace metasolver {

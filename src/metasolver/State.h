@@ -1,16 +1,13 @@
-#include <functional>
-#include <iostream>
-#include <list>
-#include <map>
-#include <string>
-
 #ifndef STATE_H_
 #define STATE_H_
 
-#include "ActionEvaluator.h"
-#include <algorithm>
+#include <iostream>
+#include <list>
+
+#include "metasolver/ActionEvaluator.h"
 
 using namespace std;
+
 namespace metasolver {
 
 class Action {

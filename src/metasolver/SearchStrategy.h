@@ -1,4 +1,6 @@
-#include <iostream>
+#ifndef SEARCHSTRATEGY_H_
+#define SEARCHSTRATEGY_H_
+
 #include <list>
 #include <memory>
 #include <stdio.h>
@@ -7,9 +9,6 @@
 #include <boost/timer/timer.hpp>
 
 #include "State.h"
-
-#ifndef SEARCHSTRATEGY_H_
-#define SEARCHSTRATEGY_H_
 
 using namespace std;
 

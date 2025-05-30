@@ -1,7 +1,11 @@
 #ifndef STRATEGIES_BSG_H_
 #define STRATEGIES_BSG_H_
 
+#include <map>
+
 #include "metasolver/SearchStrategy.h"
+
+using namespace std;
 
 namespace metasolver {
 

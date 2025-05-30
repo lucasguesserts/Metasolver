@@ -1,7 +1,8 @@
-
+#include <map>
 
 #include "metasolver/SearchStrategy.h"
-#include "clpState.h"
+
+using namespace std;
 
 namespace metasolver {
 

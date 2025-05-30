@@ -6,8 +6,8 @@
 #include <string>
 #include <vector>
 
-#include "BoxShape.h"
-#include "clpState.h"
+#include "objects/BoxShape.h"
+#include "metasolver/clpState.h"
 
 using namespace std;
 using namespace metasolver;

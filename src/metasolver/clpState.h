@@ -1,13 +1,11 @@
-
-
 #ifndef CLPSTATE_H_
 #define CLPSTATE_H_
 
 #include <map>
 #include <string>
 
-#include "../metasolver/State.h"
-#include "Block.h"
+#include "metasolver/State.h"
+#include "objects/Block.h"
 
 using namespace std;
 using namespace metasolver;

@@ -1,9 +1,10 @@
-#include "State.h"
+#ifndef HEURISTIC_FUNCTION_H_
+#define HEURISTIC_FUNCTION_H_
+
 #include <cstdlib>
 #include <math.h>
 
-#ifndef HEURISTIC_FUNCTION_H_
-#define HEURISTIC_FUNCTION_H_
+#include "metasolver/State.h"
 
 using namespace std;
 

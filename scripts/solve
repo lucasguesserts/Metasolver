@@ -29,7 +29,7 @@ def parse_arguments():
     parser.add_argument(
         "--solver",
         type=str,
-        default="./build/Release/BSG_CLP",
+        default="./build/Release/bsg",
         help="Path to the solver executable.",
     )
     parser.add_argument(

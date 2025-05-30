@@ -34,7 +34,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror") # enable warnings
 include_directories(src/)
 
 add_executable(
-    BSG_CLP
+    bsg
     src/main.cpp
     src/containers/AABBContainer.cpp
     src/containers/AABBTree.cpp

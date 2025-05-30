@@ -7,7 +7,7 @@ export BUILD_DIR=$(realpath $SCRIPT_DIR/../build)
 
 # Variables
 export INPUT_DIR="${SOURCE_DIR}/instances/"
-export SOLVER="${BUILD_DIR}/Release/BSG_CLP"
+export SOLVER="${BUILD_DIR}/Release/bsg"
 export SOLVER_TIMEOUT=5
 export SOLVER_MIN_FR=0.98
 export ARAYA_2014_SOLVER_OPTIONS="--seed=42 --alpha=0.0 --beta=0.0 --gamma=0.0 -p0.0 -fBR"

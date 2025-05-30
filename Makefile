@@ -1,5 +1,5 @@
 BUILD_DIR_PREFIX := build
-BUILD_TYPE := $(if $(BUILD_TYPE),$(BUILD_TYPE),Debug)
+BUILD_TYPE := $(if $(BUILD_TYPE),$(BUILD_TYPE),Release)
 TEST_LOG_FILE := test.log
 BUILD_DIR := "$(BUILD_DIR_PREFIX)/$(BUILD_TYPE)"
 

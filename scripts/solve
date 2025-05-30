@@ -17,7 +17,7 @@ def parse_arguments():
     parser.add_argument(
         "--input_dir",
         type=str,
-        default="./problems/clp/benchs/BR/",
+        default="./instances/",
         help="Input directory containing instance files.",
     )
     parser.add_argument(

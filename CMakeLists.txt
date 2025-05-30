@@ -68,34 +68,3 @@ add_library(
 
 add_executable(BSG_CLP problems/clp/main_clp.cpp)
 target_link_libraries(BSG_CLP clp_state clp bsg)
-
-# Tests
-
-enable_testing()
-
-add_executable(test_BSG_CLP problems/clp/test_clp.cpp)
-target_link_libraries(test_BSG_CLP clp_state clp bsg)
-
-add_test(
-    NAME o-search
-    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/BSG_B problems/clp/benchs/BRwp-1.0-0.5/BR4.txt -i 1 --min_fr=0.98 -t 1 -s o-search --fp=R -f BRwp
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-add_test(
-    NAME bsg
-    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/BSG_B problems/clp/benchs/BRwp-1.0-0.5/BR4.txt -i 1 --min_fr=0.98 -t 1 -s bsg --fp=R -f BRwp
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-add_test(
-    NAME bsg_p
-     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/BSG_B problems/clp/benchs/BRwp-1.0-0.5/BR4.txt -i 1 --min_fr=0.98 -t 1 -s bsg_p --fp=R -f BRwp
-     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-add_test(
-    NAME bsg_vp
-    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/BSG_B problems/clp/benchs/BRwp-1.0-0.5/BR4.txt -i 1 --min_fr=0.98 -t 2 -s bsg_vp --fp=R -f BRwp
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)

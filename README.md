@@ -5,144 +5,79 @@ BSG is a method based on beam search(an adaptation of a branch-and-bound algorit
 ## Compiling
 
 ```sh
-git clone https://github.com/rilianx/Metasolver.git
+git clone https://github.com/lucasguesserts/Metasolver.git
 cd Metasolver
 make
+./build/Release/bsg --help
 ```
 
-All the build files will be in the newly created directory `build`.
+This will generate the `bsg` (`build/Release/bsg`).
 
-## `BSG_CLP` Options
+By default, it compiles in Release mode. To compile in Debug mode, run `make BUILD_TYPE=Debug` (the binary will be `build/Debug/bsg`).
 
-```plain
-./build/BSG_CLP {OPTIONS} [instance-set]
-
-    ********* BSG-CLP *********.
-
-  OPTIONS:
-
-      -h, --help                        Display this help menu
-      -i[int]                           Instance
-      -f[string]                        Format: (BR, BRw, 1C)
-      --min_fr=[double]                 Minimum volume occupied by a block
-                                        (proportion)
-      -t[int], --timelimit=[int]        Timelimit
-      --seed=[int]                      Random seed
-      --alpha=[double]                  Alpha parameter
-      --beta=[double]                   Beta parameter
-      --gamma=[double]                  Gamma parameter
-      --delta=[double]                  Delta parameter
-      -p[double]                        p parameter
-      --show_layout                     Show the layout of the boxes
-      --fsb                             full-support blocks
-      --trace                           Trace
-      instance-set                      The name of the instance set
-      "--" can be used to terminate flag options and force all following
-      arguments to be treated as positional options
-
-    BSG Solver for CLP.
-```
-
-### `BSG_CLP` Example
+## `bsg` Example
 
 ```sh
-./build/BSG_CLP problems/clp/benchs/BR/BR2.txt -i 47 -t 10
-```
-
-## BSG-B for biobjective CLP
-
-BSG-B is an adaptation of the BSG algorithm for dealing with biobjective CLPs. It has two important differences w.r.t. BSG:
-
-* BSG-B uses a dynamic mechanism for orienting the search to one objective or the other by changing the configuration of the heuristic function;
-* BSG-B selects the states for the next level by using well-known multi-objective criteria, i.e., non-dominated sort (nds) and crowding distance;
-
-| ![flowchart](https://i.ibb.co/TcWD4G2/BSG-BO-flowchart.png) |
-| :---: |
-| Flowchart of the BSG-B algorithm |
-
-### The VPD function
-
-VPD is an heuristic function for ranking and selecting the next block to be placed. VPD, like other heuristic functions, attempts to best evaluate those blocks that most probably will guide the construction to solutions maximizing the total volume of boxes.
-
-The function VPD evaluates each block b according to the place in where it should be located inside the container. The mathematical expression of the VPD function is:
-
-$$ VPD(b, \theta) = V(b)^{\theta_1} \cdot P(b)^{\theta_2} \cdot D(b)^{\theta_3} \cdot CS(b, \theta_4)^{\theta_5} \cdot (1 - L(b))^{\theta_6} \cdot N(b)^{-\theta_7} $$
-
-where $V(b)$, $P(b)$ and $D(b)$ are the volume, profit and density of the block b respectively, $CS(b,\theta_4)$ is the proportion of the surface area of the block covered by the adjacent blocks or by the walls of the container. $L(b)$ estimates the wasted volume in the residual space of the selected free space cuboid. The estimation takes into account that the maximum usable space in each direction of the residual space must be a linear combination of the dimensions of the remaining boxes. The problem is modeled as a knapsack problem and solved with a standard algorithm in pseudo-polynomial time.
-
-$\theta$ is the parameter vector of the function used for weighting the different criteria.
-
-### `BSG_B` Options
-
-```plain
-./build/BSG_B {OPTIONS} [instance-set]
-
-  ********* BSG-BO *********.
-
-OPTIONS:
-
--h, --help                        Display this help menu
--i[int]                           Instance number
--f[string]                        Format (BR, BRw, 1C, BRwp)
---fp=[string]                     Kind of profit (R, I, W)
---min_fr=[double]                 Block_generation: Minimum volume occupied by a block (proportion)
---maxb=[int]                      Block_generation: Maximum number of generated blocks
--t[int], --timelimit=[int]        Timelimit
---seed=[int]                      Random seed
--s[double]                        Strategy (bsg, bsg_p, bsg_vp, ns+cd,
-                                  o-search)
---theta_v=[double]                VPD's parameter vector (max vol)
---theta_p=[double]                VPD's parameter vector (max profit)
---ref=["double double"]           Reference point. (format: "y1 y2")
---matlab                          Matlab output
---trace                           Trace
-instance-set                      The instance set
-
-  BSG-B Solver for CLP.
-
-```
-
-### `BSG_B` Example
-
-```sh
-./build/BSG_B problems/clp/benchs/BRwp-1.0-0.5/BR8.txt -i 1 --min_fr=0.98 -t 10 --theta_v="1 0 -0.13 0.02 3.85 6.27 0.48" --theta_p="-0.95 1.0 -0.16 0.02 1.53 1.53 0.44" -s o-search --fp=R -f BRwp
+./build/Release/bsg --help # for all options
+$ ./build/Release/bsg instances/BR2.txt -i 47 -t 10
+***** Creando el contenedor ****
+File(BR): instances/BR2.txt
+Instance:48
+min_fr:0.98
+Maxtime:10
+587 233 220
+n_blocks:10000
+greedy
+bsg
+double effort
+copying state
+running
+beams/max_level_size:4/16
+[BSG_path] new best_solution_found (0.22): 0.928765 11 nodes
+[BSG_path] new best_solution_found (0.32): 0.9317344 6 nodes
+[BSG_path] new best_solution_found (0.45): 0.93572355 13 nodes
+[BSG_path] new best_solution_found (0.47): 0.94048782 15 nodes
+[BSG_path] new best_solution_found (0.48): 0.94283454 14 nodes
+[BSG_path] new best_solution_found (0.49): 0.94744636 16 nodes
+[DoubleEffort] new best_solution_found (0.51): 0.94744636
+beams/max_level_size:6/36
+[BSG_path] new best_solution_found (0.92): 0.95853155 8 nodes
+[BSG_path] new best_solution_found (1.37): 0.96328332 13 nodes
+[BSG_path] new best_solution_found (1.38): 0.96447539 10 nodes
+[BSG_path] new best_solution_found (1.38): 0.96525303 10 nodes
+[DoubleEffort] new best_solution_found (1.39): 0.96525303
+beams/max_level_size:8/64
+beams/max_level_size:11/121
+[BSG_path] new best_solution_found (6.03): 0.96556091 10 nodes
+[DoubleEffort] new best_solution_found (6.06): 0.96556091
+beams/max_level_size:16/256
+allocation time: 10.04
+wall time: 10.05
+greedy search calls: 2920
+% volume utilization
+96.556091
 ```
 
 ## Instance sets
 
-Set of benchmark instances can be found in [problems/clp/benchs](https://github.com/rilianx/Metasolver/tree/mop-bsg/problems/clp/benchs)
+The [instance set](./instances/) has been proposed by Bischoff and Ratcliff (1995) and expanded by Davies and Bischoff (1999). It is composed of 16 classes, BR0 to BR15, with 100 instances each, totaling 1,600, organized in growing heterogeneity: the BR0 instances class has one item type (homogeneous); BR1 to BR7 have few item types (weakly heterogeneous) with large quantities; BR8 to BR15 have many item types (strongly heterogeneous) with small quantities. They all use a 20 ft ISO container, which has 587 cm of length, 233 cm of width, and 220 cm of height.
 
-There are 3 sets of biobjective instances:
+## Experimental Result
 
-* [BRwp-X-Z](https://github.com/rilianx/Metasolver/tree/mop-bsg/problems/clp/benchs) (option -fp BRwp): 12 set of 1600 biobjective instances each. They are based on the BR instances proposed by [Bischoff & Ratcliff](https://www.sciencedirect.com/science/article/pii/030504839500015G) and [Davies & Bischoff](https://www.sciencedirect.com/science/article/abs/pii/S0377221798001398). We consider random weights ($w_i = v_i * d_i$) to each box $c_i$ of the BR instances. $d_i$ corresponds to the density of the box and it is randomly generated according to a normal distribution $N(\mu=X \cdot D_{max}, \sigma=X \cdot Z)$. We considered three different values for $X$ (0.5, 1.0 and 1.4) and three values for $Z$ (0.3, 0.5 and 0.8). $D_{max} = 753 \ [kg/m^3]$ corresponds to the maximum density supported by 20' containers. Profits of boxes were generated random and uniformly with values between $0$ and $100$. The three kinds of profits are supported: `--fp=R` for random profiles retrieved from the instance file, `--fp=W` for profits equal to weights of boxes and `--fp=I` for profits equal to $1$.
+[There is a spreadsheet with the data of the experiments of Araya et al. 2017](./docs/results_paper_araya_2017.ods).
 
-* [NMFTA](https://github.com/rilianx/Metasolver/tree/mop-bsg/problems/clp/benchs/NMFTA) (option `-f BRwp`): 11 sets of 100 instances generated by using directly real data provided by NMFTA in  [February,  2019](http://www.nmfta.org/pages/Public-Docket-Files-2019-1) (spreadsheest of data can be found [here](https://github.com/rilianx/Metasolver/tree/mop-bsg/extras/nmfta_generator)). Each instance was generated by selecting features of real transportation products related to a speific kind of commodity (e.g., mattresses, box spring or waterbeds; flammable or combustible liquids; power pumps; etc.). The three kinds of profits are supported: `--fp=R` for random profiles retrieved from the instance file, `--fp=W` for profits equal to weights of boxes  of boxes and `--fp=I` for profits equal to $1$.
+The authors also made the spreadsheets available online:
 
-* [1C](https://github.com/rilianx/Metasolver/tree/master/problems/clp/benchs/1C) (option `-f BRwp`): Sets of biobjective instances proposed by [Gonzalez et al.](https://www.sciencedirect.com/science/article/pii/S1877050916319494). Two kinds of profits are supported: `--fp=W` for profits equal to weights of boxes and `--fp=I` for profits equal to $1$.
+* [Results of BSG on the classic BR instances](https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vTp6t3tOLYOzoEXScyt5GEJxhu7oML3eq2yyX0J_t6YiMrTTf6XsXhkSsqJ5AxGkFjYBfUyl_vlLsAe/pubhtml?gid=1713343267&single=true);
+* [Results of experiments on BRwp1.0-0.5 instances](https://docs.google.com/spreadsheets/d/e/2PACX-1vSk0_iexrd_v7x-I_72Albt21t9iLka3o9CUatUYh0jcxl7O-Lw_dLpJ9FRF0GdlqQ7AyrCFXoCF5wX/pubhtml?gid=1240292960&single=true);
+* [Results of experiments on NMFTA instances](https://docs.google.com/spreadsheets/d/e/2PACX-1vSk0_iexrd_v7x-I_72Albt21t9iLka3o9CUatUYh0jcxl7O-Lw_dLpJ9FRF0GdlqQ7AyrCFXoCF5wX/pubhtml?gid=157777762&single=true);
 
-## Variants
+## Related Literature
 
-Five variants are implemented:
-
-* **BSG** (option: `-s bsg`): corresponds to the original algorithm. Its objective is to maximize the occupied volume of the container, thus it selects as successors the nodes which, after applying the greedy algorithm, maximize the occupied volume. BSG uses the parameter vector $\theta_v$ for the heuristic function VPD.
-
-* **BSG_p** (option: `-s bsg_p`): is equivalent to BSG but it selects as successors the nodes which, after applying the greedy algorithm, maximize the total profit of the loaded boxes. `BSG_p` uses the parameter vector $\theta_p$ for the function VPD.
-
-* **BSG_vp** (option: `-s bsg_vp`):  runs `BSG` and `BSG_p` in sequence. Each strategy is run half of the total assigned time with parameter vectors $\theta_v$ and $\theta_p$ respectively.
-
-* **nds+cd** (option: `-s nds+cd`) and **o-search** (option: `-s o-search`). Both use non-dominated sort and crowding distance for selecting successors in the beam search. In addition, o-search orients the search by changing dynamically the parameter values of the heuristic function VPD between $\theta_v$ and $\theta_p$.
-nds+cd uses the parameter vector $\theta_v$ for the function VPD.
-
-By default the values of $\theta_v$ and $\theta_p$ are tuned for maximizing the total volume and the total profit of loaded boxes respectively (i.e., `--theta_v="1 0 -0.13 0.02 3.85 6.27 0.48"` and `--theta_p="-0.95 1.0 -0.16 0.02 1.53 1.53 0.44"`).
-
-## Experiments
-
-* [Results of BSG on the classic BR instances.](https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vTp6t3tOLYOzoEXScyt5GEJxhu7oML3eq2yyX0J_t6YiMrTTf6XsXhkSsqJ5AxGkFjYBfUyl_vlLsAe/pubhtml?gid=1713343267&single=true)
-* [Results of experiments on BRwp1.0-0.5 instances.](https://docs.google.com/spreadsheets/d/e/2PACX-1vSk0_iexrd_v7x-I_72Albt21t9iLka3o9CUatUYh0jcxl7O-Lw_dLpJ9FRF0GdlqQ7AyrCFXoCF5wX/pubhtml?gid=1240292960&single=true)
-* [Results of experiments on NMFTA instances.](https://docs.google.com/spreadsheets/d/e/2PACX-1vSk0_iexrd_v7x-I_72Albt21t9iLka3o9CUatUYh0jcxl7O-Lw_dLpJ9FRF0GdlqQ7AyrCFXoCF5wX/pubhtml?gid=157777762&single=true)
-
-## Related papers
-
-* I. Araya, M.-C. Riff, [A beam search approach to the container loading problem](https://www.sciencedirect.com/science/article/pii/S0305054813002530), Computers & Operations Research 43 (2014) 100–107.
-* I.  Araya,  K.  Guerrero,  E.  Núnez,  [VCS:  A  new  heuristic  function  for selecting boxes in the single container loading problem](https://www.sciencedirect.com/science/article/pii/S0305054817300023),  Computers & Operations Research 82 (2017) 27–35
-* I.  Araya, M. Moyano, C. Sanchez, [A beam search algorithm for the biobjective container loading problem](https://www.sciencedirect.com/science/article/pii/S037722172030254X). European Journal of Operational Research, 286(2), 417-431. (2020)
+* BSG Heuristic:
+  * [Araya, I., & Riff, M.C. (2014). A beam search approach to the container loading problem. Comput. Oper. Res., 43, 100-107.](https://doi.org/10.1016/j.cor.2013.09.003)
+  * [Araya, I., Guerrero, K., & Nuñez, E. (2017). VCS: A new heuristic function for selecting boxes in the single container loading problem. Comput. Oper. Res., 82, 27-35.](https://doi.org/10.1016/J.COR.2017.01.002)
+  * [Araya, I., Moyano, M., & Sanchez, C. (2020). A beam search algorithm for the biobjective container loading problem. Eur. J. Oper. Res., 286, 417-431.](https://doi.org/10.1016/j.ejor.2020.03.040)
+* Instances:
+  * [Bischoff, E.E., & Ratcliff, M.S. (1995). Issues in the development of approaches to container loading. Omega-international Journal of Management Science, 23, 377-390.](https://doi.org/10.1016/0305-0483%2895%2900015-G)
+  * [Davies, A., & Bischoff, E.E. (1999). Weight distribution considerations in container loading. Eur. J. Oper. Res., 114, 509-527.](https://doi.org/10.1016/S0377-2217%2898%2900139-8)

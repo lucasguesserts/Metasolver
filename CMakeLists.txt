@@ -9,7 +9,7 @@ if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
 endif()
 
 # Build options
-
+set(BUILD_SHARED_LIBS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release")
@@ -26,6 +26,7 @@ add_subdirectory(dependencies/bullet-2.80)
 link_libraries(BulletDynamics BulletCollision LinearMath)
 include_directories(dependencies/bullet-2.80/src/)
 ## Boost
+set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost COMPONENTS timer REQUIRED)
 link_libraries(Boost::boost Boost::timer)
 
